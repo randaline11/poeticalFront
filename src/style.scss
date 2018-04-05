@@ -7,3 +7,15 @@ body, html {
 .active {
   color: pink;
 }
+
+.vis-item.sampleItem {
+  color: white;
+  background-color: red;
+  border: 0px;
+  border-radius: 2px;
+}
+
+#display {
+  font-size: 48px;
+  text-align: center;
+}
