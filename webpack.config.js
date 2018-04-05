@@ -1,5 +1,13 @@
 'use strict';
 var webpack = require('webpack');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+
+const extractSass = new ExtractTextPlugin({
+  filename: 'style.css',
+  disable: process.env.NODE_ENV === 'development',
+});
 
 var config = {
   context: __dirname + '/src', // `__dirname` is root of project and `src` is source
@@ -42,7 +50,29 @@ var config = {
           'style-loader',
           'css-loader'
         ]
-      }, {
+      },
+      {
+      test: /(\.scss)$/,
+      use: extractSass.extract({
+        use: [
+          {
+            loader: 'css-loader',
+            options: { sourceMap: true },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [autoprefixer()],
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: { sourceMap: true },
+          },
+        ],
+        fallback: 'style-loader', // use style-loader in development mode
+      }),
+    },{
         test: /.*\.png$/i,
         loaders: [ 'file-loader', {
           loader: 'image-webpack-loader',
@@ -58,6 +88,9 @@ var config = {
       }
     ]
   },
+  plugins: [
+  extractSass,
+],
   //To run development server
   devServer: {
     contentBase: __dirname + '/src',

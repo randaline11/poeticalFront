@@ -1,0 +1,9 @@
+$red: #550000;
+body, html {
+  font-family: "Roboto", sans-serif;
+  background: darken(white, 0.2);
+  color: $red;
+}
+.active {
+  color: pink;
+}
