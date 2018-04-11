@@ -4,6 +4,7 @@ import 'vis/dist/vis.min.css';
 import moment from 'moment'
 
 import './style.scss'
+import * as timelineFunctions from './timelineFormatService.js';
 
 // // create an array with nodes
 // var nodes = new DataSet([
@@ -38,16 +39,18 @@ import './style.scss'
 
 var container = document.getElementById('visualization');
 
-var data = new DataSet([
-  {id: 1, content: 'item 1', className:'sampleItem', start: moment('2013-04-20'), end: moment('2013-04-21')},
-  {id: 2, content: 'item 2', className:'sampleItem', start: moment('2013-04-14'), end: moment('2013-04-16')},
-  {id: 3, content: 'item 3', className:'sampleItem', start: moment('2013-04-18'), end: moment('2013-04-20')},
-  {id: 4, content: 'item 4', start: moment('2013-04-16'), end: moment('2013-04-19')},
-  {id: 5, content: 'item 5', start: moment('2013-04-25'), end: moment('2013-04-26')},
-  {id: 6, content: 'item 6', start: moment('2013-04-27'), end: moment('2013-04-28')},
-  {id: 7, content: 'item 7', start: moment('2013-04-17'), end: moment('2013-04-20')},
-  {id: 8, content: 'item 8', start: moment('2013-04-19'), end: moment('2013-04-21')}
-]);
+// var data = new DataSet([
+//   {id: 1, content: 'item 1', className:'sampleItem', start: moment('2013-04-20'), end: moment('2013-04-21')},
+//   {id: 2, content: 'item 2', className:'sampleItem', start: moment('2013-04-14'), end: moment('2013-04-16')},
+//   {id: 3, content: 'item 3', className:'sampleItem', start: moment('2013-04-18'), end: moment('2013-04-20')},
+//   {id: 4, content: 'item 4', start: moment('2013-04-16'), end: moment('2013-04-19')},
+//   {id: 5, content: 'item 5', start: moment('2013-04-25'), end: moment('2013-04-26')},
+//   {id: 6, content: 'item 6', start: moment('2013-04-27'), end: moment('2013-04-28')},
+//   {id: 7, content: 'item 7', start: moment('2013-04-17'), end: moment('2013-04-20')},
+//   {id: 8, content: 'item 8', start: moment('2013-04-19'), end: moment('2013-04-21')}
+// ]);
+
+var data = new DataSet(timelineFunctions.createAllTimelineItems());
 
 var groups = [
   {
