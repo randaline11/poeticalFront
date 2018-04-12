@@ -49,8 +49,10 @@ var container = document.getElementById('visualization');
 //   {id: 7, content: 'item 7', start: moment('2013-04-17'), end: moment('2013-04-20')},
 //   {id: 8, content: 'item 8', start: moment('2013-04-19'), end: moment('2013-04-21')}
 // ]);
-
-var data = new DataSet(timelineFunctions.createAllTimelineItems());
+var toAdd = timelineFunctions.createAllTimelineItems().then((stuff) => {
+  console.log('retrieved stuff: ', stuff);
+});
+var data = new DataSet(toAdd);
 
 var groups = [
   {

@@ -28,23 +28,28 @@ function createAllTimelineItems() {
     fetchPoets()
     .then((res) => {
       res.data.forEach(poet => {
-        console.log('poet: ', poet.name);
+        timelineItems.push(new Promise((fulfill2, reject) => {
+          console.log('poet: ', poet.name);
 
-        const mySort = getAllBooksForPoet(poet).then((toSort) => {
-        //   const sorted = toSort.sort((a, b) => {
-        //     console.log('here is a: ', a);
-        //     console.log('here is b: ', b);
-        //     return moment.utc(a.first_publish_year).diff(moment.utc(b.first_publish_year));
-        // });
-        return sorted;
-      }).then((allDone) => {
-        console.log('first in sorted list: ', allDone[0]);
-        console.log('last in sorted list: ', allDone[poet.books.length - 1]);
-
-      })
+          const mySort = getAllBooksForPoet(poet).then((toSort) => {
+            const sorted = toSort.sort((a, b) => {
+              console.log('here is a: ', a);
+              console.log('here is b: ', b);
+              return moment.utc(a.first_publish_year).diff(moment.utc(b.first_publish_year));
+          });
+          return sorted;
+        }).then((allDone) => {
+          console.log('first in sorted list: ', allDone[0]);
+          console.log('last in sorted list: ', allDone[poet.books.length - 1]);
+          fulfill2({id: poet._id, content: poet.name, className:'sampleItem', start: moment(allDone[0]), end: moment(allDone[poet.books.length - 1])});
+        });
+      })); // promise
 
       });  // forEach
-
+      Promise.all(timelineItems).then((cleanedItems) => {
+        console.log('have cleaned all items: ', cleanedItems);
+        fulfill(cleanedItems);
+      });
       //  timelineItems.push({id: poet._id, content: poet.name, className:'sampleItem', start: moment('2013-04-20'), end: moment('2013-04-21')});
       })
   });
