@@ -31,15 +31,17 @@ function createAllTimelineItems() {
         console.log('poet: ', poet.name);
 
         const mySort = getAllBooksForPoet(poet).then((toSort) => {
-          const sorted = toSort.sort((a, b) => {
-            console.log('here is a: ', a);
-            console.log('here is b: ', b);
-            return moment.utc(a.first_publish_year).diff(moment.utc(b.first_publish_year));
-        });
+        //   const sorted = toSort.sort((a, b) => {
+        //     console.log('here is a: ', a);
+        //     console.log('here is b: ', b);
+        //     return moment.utc(a.first_publish_year).diff(moment.utc(b.first_publish_year));
+        // });
+        return sorted;
+      }).then((allDone) => {
+        console.log('first in sorted list: ', allDone[0]);
+        console.log('last in sorted list: ', allDone[poet.books.length - 1]);
 
-        });
-        console.log('first in sorted list: ', mySort[0]);
-        console.log('last in sorted list: ', mySort[poet.books.length - 1]);
+      })
 
       });  // forEach
 

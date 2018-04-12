@@ -22,7 +22,7 @@ function fetchBook(id) {
   return new Promise((fulfill, reject) => {
     console.log('fetchBook');
 
-    axios.get(`${ROOT_URL}/book/${id}`).then((response) => {
+    axios.get(`${ROOT_URL}/books/${id}`).then((response) => {
       console.log(`success! ${JSON.stringify(response)}`);
       fulfill(response);
     }).catch((error) => {
