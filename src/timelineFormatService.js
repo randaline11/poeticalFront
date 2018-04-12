@@ -41,7 +41,9 @@ function createAllTimelineItems() {
         }).then((allDone) => {
           console.log('first in sorted list: ', allDone[0]);
           console.log('last in sorted list: ', allDone[poet.books.length - 1]);
-          fulfill2({id: poet._id, content: poet.name, className:'sampleItem', start: moment(allDone[0]), end: moment(allDone[poet.books.length - 1])});
+      //    fulfill2({id: poet._id, content: poet.name, className:'sampleItem', start: moment(allDone[0]), end: moment(allDone[poet.books.length - 1])});
+      fulfill2({id: poet._id, content: poet.name, className:'sampleItem', start: moment('2013-04-16'), end: moment()});
+
         });
       })); // promise
 

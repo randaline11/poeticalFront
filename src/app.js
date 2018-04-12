@@ -37,7 +37,6 @@ import * as timelineFunctions from './timelineFormatService.js';
 // };
 // var network = new Network(container, data, options);
 
-var container = document.getElementById('visualization');
 
 // var data = new DataSet([
 //   {id: 1, content: 'item 1', className:'sampleItem', start: moment('2013-04-20'), end: moment('2013-04-21')},
@@ -51,26 +50,30 @@ var container = document.getElementById('visualization');
 // ]);
 var toAdd = timelineFunctions.createAllTimelineItems().then((stuff) => {
   console.log('retrieved stuff: ', stuff);
+  var data = new DataSet(stuff);
+
+  var container = document.getElementById('visualization');
+
+  var groups = [
+    {
+      id: 1,
+      content: 'Group 1'
+      // Optional: a field 'className', 'style', 'order', [properties]
+    }
+    // more groups...
+  ];
+
+   var options = {
+     verticalScroll: true,
+     horizontalScroll: true,
+     zoomKey: 'ctrlKey',
+     height: 200
+   };
+
+  var timeline = new Timeline(container, data, options);
 });
-var data = new DataSet(toAdd);
 
-var groups = [
-  {
-    id: 1,
-    content: 'Group 1'
-    // Optional: a field 'className', 'style', 'order', [properties]
-  }
-  // more groups...
-];
 
- var options = {
-   verticalScroll: true,
-   horizontalScroll: true,
-   zoomKey: 'ctrlKey',
-   height: 200
- };
-
-var timeline = new Timeline(container, data, options);
 
 timeline.on('select', function (properties) {
   const display = document.getElementById('display').innerHTML=`selected id: ${properties.items}`;
