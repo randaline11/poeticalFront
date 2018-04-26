@@ -15,15 +15,14 @@ class TimelineComponent extends Component {
   }
 
   setupTimeline() {
-    const myDataset = [];
     return new Promise((fulfill, reject) => {
       timelineFunctions.getAllBooksforPoetsWrapper().then((allBooksAllPoets) => {
         timelineFunctions.formatTimelineIntoData(allBooksAllPoets).then((dataset) => {
           console.log('resulting dataset: ', dataset);
 
-          const mydata = new DataSet(myDataset);
+          const mydata = new DataSet(dataset);
           console.log('data12345: ', mydata);
-          const container = document.getElementById(this.state.container);
+          // const container = document.getElementById(this.state.container);
 
           const groups = [
             {
@@ -38,7 +37,7 @@ class TimelineComponent extends Component {
             verticalScroll: true,
             horizontalScroll: true,
             zoomKey: 'ctrlKey',
-            height: 200,
+            height: 400,
           };
 
           //  return new Timeline(container, data, options);
