@@ -1,7 +1,7 @@
 import axios from 'axios';
 // const ROOT_URL = 'https://cs52lab5pt2astarr.herokuapp.com/api';
- // const ROOT_URL = 'https://cs52-blog.herokuapp.com/api';
- const ROOT_URL = 'http://localhost:9090/api';
+// const ROOT_URL = 'https://cs52-blog.herokuapp.com/api';
+const ROOT_URL = 'http://localhost:9090/api';
 // const API_KEY = '?key=a_starr';
 
 function fetchBooks() {
@@ -46,7 +46,21 @@ function fetchPoets() {
   });
 }
 
-export {fetchBooks, fetchPoets, fetchBook};
+function fetchPoetByName(name) {
+  return new Promise((fulfill, reject) => {
+    console.log('fetchPoets');
+
+    axios.get(`${ROOT_URL}/poets/${name}`).then((response) => {
+      console.log(`success! ${JSON.stringify(response)}`);
+      fulfill(response);
+    }).catch((error) => {
+      reject(error);
+      console.log(`hit an error! ${error}`);
+    });
+  });
+}
+
+export { fetchBooks, fetchPoets, fetchBook, fetchPoetByName };
 // export function createPost(post, history) {
 //   return (dispatch) => {
 //     console.log('in createPost');

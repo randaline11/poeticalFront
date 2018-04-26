@@ -1,13 +1,12 @@
 // import { DataSet, Network } from 'vis/index-network';
-import { DataSet, Timeline } from 'vis/index-timeline-graph2d';
 import 'vis/dist/vis.min.css';
-import moment from 'moment'
-
-import './style.scss'
-import * as timelineFunctions from './timelineFormatService.js';
-
+import moment from 'moment';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
+import './style.scss';
+
+import TimelineComponent from './components/timeline';
 
 
 // var data = new DataSet([
@@ -31,66 +30,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
-    // firebasedb.fetchNotes((notes) => {
-    //   console.log(`fetched the notes! ${JSON.stringify(notes)}`);
-    //   this.setState({ notes: Immutable.Map(notes) });
-  //  });
-  var timeline;
-  var toAdd = timelineFunctions.createAllTimelineItems().then((stuff) => {
-    console.log('retrieved stuff: ', stuff);
-    var data = new DataSet(stuff);
-
-    var container = document.getElementById('visualization');
-
-    var groups = [
-      {
-        id: 1,
-        content: 'Group 1'
-        // Optional: a field 'className', 'style', 'order', [properties]
-      }
-      // more groups...
-    ];
-
-     var options = {
-       verticalScroll: true,
-       horizontalScroll: true,
-       zoomKey: 'ctrlKey',
-       height: 200
-     };
-
-    timeline = new Timeline(container, data, options);
-  });
-
-  timeline.on('select', function (properties) {
-    const display = document.getElementById('display').innerHTML=`selected id: ${properties.items}`;
-  });
-
   }
 
-  // changeNote(id, fields) {
-  //   console.log(this);
-  //
-  //   firebasedb.changeNote(id, fields);
-  // }
-  //
-  // deleteNote(id) {
-  //   console.log(this);
-  //   firebasedb.removeNote(id);
-  // }
-  //
-  // addNote(note) {
-  //   console.log(this);
-  //   firebasedb.createNote(note);
-  // }
-  // search(text) {
-  //   this.setState({
-  //     addTerm: text,
-  //   });
-  // }
 
   render() {
-    return <div className="test">All the React are belong to us!</div>;
+    return (
+      <div className="test">All the React are belong to us!
+        <TimelineComponent container="main" />
+      </div>
+    );
   }
 }
 
