@@ -18,35 +18,36 @@ class TimelineComponent extends Component {
     return new Promise((fulfill, reject) => {
       timelineFunctions.getAllBooksforPoetsWrapper().then((allBooksAllPoets) => {
         timelineFunctions.formatTimelineIntoData(allBooksAllPoets).then((dataset) => {
-          console.log('resulting dataset: ', dataset);
-
+          console.log(dataset);
+          //    // console.log('resulting dataset: ', dataset);
+          //
           const mydata = new DataSet(dataset);
-          console.log('data12345: ', mydata);
-          // const container = document.getElementById(this.state.container);
-
-          const groups = [
-            {
-              id: 1,
-              content: 'Group 1',
-              // Optional: a field 'className', 'style', 'order', [properties]
-            },
-            // more groups...
-          ];
-
+          //     // console.log('data12345: ', mydata);
+          //    // const container = document.getElementById(this.state.container);
+          //
+          //     const groups = [
+          //       {
+          //         id: 1,
+          //         content: 'Group 1',
+          //         // Optional: a field 'className', 'style', 'order', [properties]
+          //       },
+          //       // more groups...
+          //     ];
+          //
           const options = {
             verticalScroll: true,
             horizontalScroll: true,
             zoomKey: 'ctrlKey',
             height: 400,
           };
-
-          //  return new Timeline(container, data, options);
+          //
+          //     //  return new Timeline(container, data, options);
           const params = {
             //  container,
             data: mydata,
             options,
           };
-          console.log('params looks like: ', params.data);
+          //     // console.log('params looks like: ', params.data);
           fulfill(params);
         });
       });
@@ -60,7 +61,8 @@ class TimelineComponent extends Component {
   render() {
     console.log('rerendering');
     return this.setupTimeline().then((params) => {
-      console.log('setting up params now: ', params);
+      // console.log('setting up params now: ', params);
+      console.log(document.getElementById(this.state.container), params.data, params.options);
       const createdTimeline = new Timeline(document.getElementById(this.state.container), params.data, params.options);
       return createdTimeline;
     });
