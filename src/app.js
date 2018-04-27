@@ -32,7 +32,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className="test">All the React are belong to us!
+      <div>
+        <div className="test">
+      Explore up and down, left and Right. CTRL to zoom in and out.
+        </div>
         <TimelineComponent container="main" />
       </div>
     );

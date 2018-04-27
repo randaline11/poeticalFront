@@ -1,18 +1,40 @@
 $red: #550000;
+$purple: #2E294E;
+$grey: #696969;
+$color3: rgba(110,144,117, 0.7);
 body, html {
   font-family: "Roboto", sans-serif;
+
   background: darken(white, 0.2);
   color: $red;
 }
-.active {
-  color: pink;
+
+h1 {
+  text-align: center;
+  color: $purple;
+  font-size: 48px;
+  font-family: "Work Sans", sans-serif;
+}
+
+* {
+  visibility: visible;
 }
 
 .vis-item.sampleItem {
   color: white;
-  background-color: red;
+  background-color: $color3;
   border: 0px;
   border-radius: 2px;
+}
+
+.vis-timeline {
+  visibility: visible;
+}
+
+.test {
+  color: $grey;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 #display {

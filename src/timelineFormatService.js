@@ -62,22 +62,20 @@ function formatTimelineIntoData(allBooksAllPoets) {
             console.log('last book is: ', retrievedLastBook);
 
 
-            // if last start year is 0 anyways, maybe we should take the poet off the list
-            // while(lastBook.first_publish_year === 0) {
-            //   nedIndex += 1
-            //   firstBook = findElement(sorted, startIndex);
-            // }
-
-
             const firstBookYear = moment(retrievedFirstBook.first_publish_year, 'YYYY');
-            const lastBookYear = moment(retrievedLastBook.first_publish_year, 'YYYY');
+            let endYear = 0;
+            if (retrievedLastBook.first_publish_year - retrievedFirstBook.first_publish_year < 2) {
+              endYear = retrievedLastBook.first_publish_year + 1;
+            } else {
+              endYear = retrievedLastBook.first_publish_year;
+            }
+            const lastBookYear = moment(endYear, 'YYYY');
             console.log('firstBookYear: ', retrievedFirstBook.first_publish_year);
             console.log('lastBookYear: ', retrievedLastBook.first_publish_year);
 
             console.log('firstBookYearmoment: ', firstBookYear);
             console.log('lastBookYearmoment: ', lastBookYear);
-            // const firstBookYear = firstBook.first_publish_year;
-            // const lastBookYear = lastBook.first_publish_year;
+
 
             fetchPoetByName(retrievedFirstBook.author).then((res, err) => {
               console.log('res looks like: ', res);
@@ -88,7 +86,7 @@ function formatTimelineIntoData(allBooksAllPoets) {
               } else {
                 console.log('error in creating timeline data point: ', err);
                 fulfill2({
-                  id: res.data.id, content: res.data.name, className: 'sampleItem2', start: firstBookYear, end: lastBookYear,
+                  id: res.data.id, content: res.data.name, className: 'sampleItem', start: firstBookYear, end: lastBookYear,
                 });
               }
             });
