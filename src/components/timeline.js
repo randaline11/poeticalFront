@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { DataSet } from 'vis/index-timeline-graph2d';
 import Timeline from 'react-visjs-timeline';
 import moment from 'moment';
 import * as timelineFunctions from '../timelineFormatService';
-import * as axiosFunctions from '../axios.js';
 import '../style.scss';
 
 class TimelineComponent extends Component {
@@ -32,13 +30,6 @@ class TimelineComponent extends Component {
       timelineFunctions.getAllBooksforPoetsWrapper().then((allBooksAllPoets) => {
         timelineFunctions.formatTimelineIntoData(allBooksAllPoets).then((dataset) => {
           console.log(dataset);
-          //    // console.log('resulting dataset: ', dataset);
-          //
-          //  const mydata = new DataSet(dataset);
-
-          //     // console.log('data12345: ', mydata);
-          //    // const container = document.getElementById(this.state.container);
-          //
           //     const groups = [
           //       {
           //         id: 1,
@@ -57,19 +48,16 @@ class TimelineComponent extends Component {
             zoomMin: 259200000000,
             zoomMax: 63072000000000,
             zoomable: true,
-            showCurrentTime: false,
+            showCurrentTime: true,
 
             max: moment(2100, 'YYYY'),
             min: moment(1400, 'YYYY'),
           };
-          //
-          //     //  return new Timeline(container, data, options);
+
           const params = {
-            //  container,
             data: dataset,
             options,
           };
-          //     // console.log('params looks like: ', params.data);
           fulfill(params);
         });
       });
@@ -78,20 +66,13 @@ class TimelineComponent extends Component {
 
 
   render() {
-    console.log('rerendering');
-    console.log('options: ', this.state.options);
-    console.log('items: ', this.state.data);
-    // return this.setupTimeline().then((params) => {
-    // console.log('setting up params now: ', params);
-    // console.log(document.getElementById(this.state.container), params.data, params.options);
-    //  const createdTimeline = new Timeline(document.getElementById(this.state.container), params.data, params.options);
-    //  return createdTimeline;
-    return (<div><Timeline
-      options={this.state.options}
-      items={this.state.data}
-    />
-    </div>);
-  //  });
+    return (
+      <div>
+        <Timeline
+          options={this.state.options}
+          items={this.state.data}
+        />
+      </div>);
   }
 }
 

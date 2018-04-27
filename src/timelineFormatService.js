@@ -40,8 +40,6 @@ function getAllBooksforPoetsWrapper() {
         Promise.all(timelineItems).then((cleanedItems) => {
           console.log('have cleaned all items: ', cleanedItems);
           fulfill(cleanedItems);
-          //    });
-          //  timelineItems.push({id: poet._id, content: poet.name, className:'sampleItem', start: moment('2013-04-20'), end: moment('2013-04-21')});
         });
       });
   });
@@ -53,7 +51,6 @@ function formatTimelineIntoData(allBooksAllPoets) {
     allBooksAllPoets.forEach((poetsBooks) => {
       myDataset.push(new Promise((fulfill2, reject2) => {
         const sorted = sortBooks(poetsBooks);
-        console.log('result of sorted: ', sorted);
         const startIndex = 0;
         const endIndex = sorted.length - 1;
         const firstBook = findElement(sorted, 0).then((retrievedFirstBook) => {
@@ -73,12 +70,8 @@ function formatTimelineIntoData(allBooksAllPoets) {
             console.log('firstBookYear: ', retrievedFirstBook.first_publish_year);
             console.log('lastBookYear: ', retrievedLastBook.first_publish_year);
 
-            console.log('firstBookYearmoment: ', firstBookYear);
-            console.log('lastBookYearmoment: ', lastBookYear);
-
 
             fetchPoetByName(retrievedFirstBook.author).then((res, err) => {
-              console.log('res looks like: ', res);
               if (res) {
                 fulfill2({
                   id: res.data.id, content: res.data.name, className: 'sampleItem', start: firstBookYear, end: lastBookYear,
@@ -109,7 +102,6 @@ function formatTimelineIntoData(allBooksAllPoets) {
       fulfill(filteredDataset);
     })
       .catch((err) => {
-        console.log('grabbed an error here!');
         console.log('error: ', err);
       });
   });
@@ -138,7 +130,6 @@ function getAllBooksForPoet(poet) {
 }
 
 function sortBooks(toSort) {
-  console.log('sorting2: ', toSort.length);
   const sorted = toSort.sort((a, b) => {
     return moment.utc(a.first_publish_year).diff(moment.utc(b.first_publish_year));
   });
@@ -170,15 +161,6 @@ function findElement(toSearch, index) {
     }
   //  reject();
   });
-}
-function findElement2(toSearch, index) {
-  let foundBook = { first_publish_year: 0 };
-  if (foundBook.first_publish_year === 0) {
-    foundBook = toSearch.find((e) => {
-      return e.id === toSearch[index].id;
-    });
-  }
-  return foundBook;
 }
 
 
