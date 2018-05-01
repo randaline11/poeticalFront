@@ -3,6 +3,7 @@ import Timeline from 'react-visjs-timeline';
 import moment from 'moment';
 import * as timelineFunctions from '../timelineFormatService';
 import * as axiosFunctions from '../axios';
+import BookComponent from './book';
 
 import '../style.scss';
 
@@ -37,11 +38,22 @@ class TimelineComponent extends Component {
       console.log('item: ', e);
       console.log('this.state.peots: ', this.state.poets);
       const thisPoet = this.state.poets.find((poet) => { return poet.id === e.item; });
+
+      let i = 0;
+      const poetsBooks = [];
+      while (i < thisPoet.books.length) {
+        const specificBook = this.state.books.find((book) => { return book.id === thisPoet.books[i]; });
+        poetsBooks.push(specificBook);
+        i += 1;
+      }
+
       console.log('thisPoet: ', thisPoet);
+      console.log('poetsBooks: ', poetsBooks);
       this.setState({
         hovering: true,
         id: e.item,
         poet: thisPoet,
+        poetsBooks,
       });
     }
   }
@@ -51,15 +63,16 @@ class TimelineComponent extends Component {
       timelineFunctions.getAllBooksforPoetsWrapper2().then((allBooksAllPoets) => {
         timelineFunctions.formatTimelineIntoData2(allBooksAllPoets).then((dataset) => {
           console.log(dataset);
-          //     const groups = [
-          //       {
-          //         id: 1,
-          //         content: 'Group 1',
-          //         // Optional: a field 'className', 'style', 'order', [properties]
-          //       },
-          //       // more groups...
-          //     ];
-          //
+          const groups = [
+            {
+              id: 1,
+              content: 'Group 1',
+              className: 'sample',
+              // Optional: a field 'className', 'style', 'order', [properties]
+            },
+            // more groups...
+          ];
+
           const options = {
             verticalScroll: true,
             horizontalScroll: true,
@@ -106,7 +119,7 @@ class TimelineComponent extends Component {
           <div>
             {this.state.poet.name}
           Books:
-            {this.state.poet.books}
+            <BookComponent books={this.state.poetsBooks} />
           </div>);
       }
       return (
@@ -114,6 +127,7 @@ class TimelineComponent extends Component {
           <Timeline
             options={this.state.options}
             items={this.state.data}
+            groups={this.state.groups}
             mouseOverHandler={this.onHoverHandler}
           />
           <div className="test">
