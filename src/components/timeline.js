@@ -25,6 +25,8 @@ class TimelineComponent extends Component {
         this.setState({
           data: params.data,
           options: params.options,
+          poets: params.poets,
+          books: params.books,
         });
       });
     }
@@ -33,16 +35,15 @@ class TimelineComponent extends Component {
   onHoverHandler(e) {
     if (e.item !== null) {
       console.log('item: ', e);
+      console.log('this.state.peots: ', this.state.poets);
+      const thisPoet = this.state.poets.find((poet) => { return poet.id === e.item; });
+      console.log('thisPoet: ', thisPoet);
+      this.setState({
+        hovering: true,
+        id: e.item,
+        poet: thisPoet,
+      });
     }
-    axiosFunctions.fetchPoetById(e.item).then((res) => {
-      if (res) {
-        this.setState({
-          hovering: true,
-          id: e.item,
-          poet: res.data,
-        });
-      }
-    });
   }
 
   setupTimeline() {
@@ -78,6 +79,8 @@ class TimelineComponent extends Component {
           const params = {
             data: dataset,
             options,
+            poets: allBooksAllPoets.poets.data,
+            books: allBooksAllPoets.books.data,
           };
           fulfill(params);
         });
@@ -99,7 +102,12 @@ class TimelineComponent extends Component {
       return <div>Loading... </div>;
     } else {
       if (this.state.hovering) {
-        poetComponent = <div>{this.state.poet} </div>;
+        poetComponent = (
+          <div>
+            {this.state.poet.name}
+          Books:
+            {this.state.poet.books}
+          </div>);
       }
       return (
         <div>
