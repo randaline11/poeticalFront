@@ -48,9 +48,8 @@ function fetchPoets() {
 
 function fetchPoetByName(name) {
   return new Promise((fulfill, reject) => {
-    console.log('fetchPoets');
-
-    axios.get(`${ROOT_URL}/poets/${name}`).then((response) => {
+    console.log('fetchPoetByName');
+    axios.get(`${ROOT_URL}/poets/getByName/${name}`).then((response) => {
       console.log(`success! ${JSON.stringify(response)}`);
       fulfill(response);
     }).catch((error) => {
@@ -60,7 +59,21 @@ function fetchPoetByName(name) {
   });
 }
 
-export { fetchBooks, fetchPoets, fetchBook, fetchPoetByName };
+function fetchPoetById(id) {
+  return new Promise((fulfill, reject) => {
+    console.log('fetchPoetById');
+
+    axios.get(`${ROOT_URL}/poets/${id}`).then((response) => {
+      console.log(`success! ${JSON.stringify(response)}`);
+      fulfill(response);
+    }).catch((error) => {
+      reject(error);
+      console.log(`hit an error! ${error}`);
+    });
+  });
+}
+
+export { fetchBooks, fetchPoets, fetchPoetById, fetchBook, fetchPoetByName };
 // export function createPost(post, history) {
 //   return (dispatch) => {
 //     console.log('in createPost');

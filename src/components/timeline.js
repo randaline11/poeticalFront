@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 import Timeline from 'react-visjs-timeline';
 import moment from 'moment';
 import * as timelineFunctions from '../timelineFormatService';
+import * as axiosFunctions from '../axios';
+
 import '../style.scss';
 
 class TimelineComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      container: this.props.container,
+      hovering: false,
+      poet: '',
     };
     this.setupTimeline = this.setupTimeline.bind(this);
+    this.onHoverHandler = this.onHoverHandler.bind(this);
+    this.displayPoet = this.displayPoet.bind(this);
   }
 
   componentWillMount() {
@@ -25,10 +30,25 @@ class TimelineComponent extends Component {
     }
   }
 
+  onHoverHandler(e) {
+    if (e.item !== null) {
+      console.log('item: ', e);
+    }
+    axiosFunctions.fetchPoetById(e.item).then((res) => {
+      if (res) {
+        this.setState({
+          hovering: true,
+          id: e.item,
+          poet: res.data,
+        });
+      }
+    });
+  }
+
   setupTimeline() {
     return new Promise((fulfill, reject) => {
-      timelineFunctions.getAllBooksforPoetsWrapper().then((allBooksAllPoets) => {
-        timelineFunctions.formatTimelineIntoData(allBooksAllPoets).then((dataset) => {
+      timelineFunctions.getAllBooksforPoetsWrapper2().then((allBooksAllPoets) => {
+        timelineFunctions.formatTimelineIntoData2(allBooksAllPoets).then((dataset) => {
           console.log(dataset);
           //     const groups = [
           //       {
@@ -44,13 +64,14 @@ class TimelineComponent extends Component {
             horizontalScroll: true,
             zoomKey: 'ctrlKey',
             height: 500,
+            dataAttributes: 'all',
 
             zoomMin: 259200000000,
             zoomMax: 63072000000000,
             zoomable: true,
             showCurrentTime: true,
 
-            max: moment(2100, 'YYYY'),
+            max: moment(2020, 'YYYY'),
             min: moment(1400, 'YYYY'),
           };
 
@@ -64,15 +85,35 @@ class TimelineComponent extends Component {
     });
   }
 
+  displayPoet() {
+    axiosFunctions.fetchPoetById(this.state.id).then((res, err) => {
+      if (res) {
+        this.setState({ poet: res.data });
+      }
+    });
+  }
 
   render() {
-    return (
-      <div>
-        <Timeline
-          options={this.state.options}
-          items={this.state.data}
-        />
-      </div>);
+    let poetComponent;
+    if (this.state.options == undefined || this.state.data == undefined) {
+      return <div>Loading... </div>;
+    } else {
+      if (this.state.hovering) {
+        poetComponent = <div>{this.state.poet} </div>;
+      }
+      return (
+        <div>
+          <Timeline
+            options={this.state.options}
+            items={this.state.data}
+            mouseOverHandler={this.onHoverHandler}
+          />
+          <div className="test">
+            Explore up and down, left and right. CTRL to zoom in and out.
+          </div>
+          {poetComponent}
+        </div>);
+    }
   }
 }
 

@@ -45,6 +45,82 @@ function getAllBooksforPoetsWrapper() {
   });
 }
 
+function getAllBooksforPoetsWrapper2() {
+  console.log('getAllBooksforPoetsWrapper2');
+  return new Promise((fulfill, reject) => {
+    fetchPoets()
+      .then((res) => {
+        fetchBooks()
+          .then((res2) => {
+            const response = {
+              poets: res,
+              books: res2,
+            };
+            fulfill(response);
+          });
+      });
+  });
+}
+
+function findBookInArray(books, idToFind) {
+  const returnedBook = books.find((book) => { return book.id == idToFind; });
+  return returnedBook;
+}
+
+function checkForAllBooks(poet, allBooksAllPoets) {
+  const grabbedBookIds = poet.books.map((book) => {
+    return findBookInArray(allBooksAllPoets.books.data, book);
+  });
+  return grabbedBookIds;
+}
+
+function formatTimelineIntoData2(allBooksAllPoets) {
+  return new Promise((fulfill, reject) => {
+    const myDataset = [];
+    allBooksAllPoets.poets.data.forEach((poet) => {
+      myDataset.push(new Promise((fulfill2, reject2) => {
+        const grabbedBookIds = checkForAllBooks(poet, allBooksAllPoets);
+        const sorted = sortBooks(grabbedBookIds);
+        const endIndex = sorted.length - 1;
+
+
+        const firstBookYear = moment(sorted[0].first_publish_year, 'YYYY');
+        let endYear = 0;
+        if (sorted[endIndex].first_publish_year - sorted[0].first_publish_year < 2) {
+          endYear = sorted[endIndex].first_publish_year + 1;
+        } else {
+          endYear = sorted[endIndex].first_publish_year;
+        }
+        const lastBookYear = moment(endYear, 'YYYY');
+        console.log('firstBookYear: ', sorted[0].first_publish_year);
+        console.log('lastBookYear: ', endYear);
+
+        fulfill2({
+          id: poet.id, content: poet.name, className: 'sampleItem', start: firstBookYear, end: lastBookYear,
+        });
+      }));
+    });
+    Promise.all(myDataset).then((finishedDataset) => {
+      console.log('filtering out finished dataset now: ');
+      const filteredDataset = [];
+      const seenIDs = [];
+      for (let i = 0; i < finishedDataset.length; i += 1) {
+        if (finishedDataset[i] != undefined && finishedDataset[i].id !== 123 && seenIDs.indexOf(finishedDataset[i].id) === -1) {
+          seenIDs.push(finishedDataset[i].id);
+          filteredDataset.push(finishedDataset[i]);
+        } else {
+          console.log('removing duplicate: ', finishedDataset[i]);
+        }
+      }
+      console.log('finished gathering all data');
+      fulfill(filteredDataset);
+    })
+      .catch((err) => {
+        console.log('error: ', err);
+      });
+  });
+}
+
 function formatTimelineIntoData(allBooksAllPoets) {
   return new Promise((fulfill, reject) => {
     const myDataset = [];
@@ -72,15 +148,16 @@ function formatTimelineIntoData(allBooksAllPoets) {
 
 
             fetchPoetByName(retrievedFirstBook.author).then((res, err) => {
-              if (res) {
+              if (res !== undefined && res.data !== null) {
                 fulfill2({
                   id: res.data.id, content: res.data.name, className: 'sampleItem', start: firstBookYear, end: lastBookYear,
                 });
               } else {
                 console.log('error in creating timeline data point: ', err);
                 fulfill2({
-                  id: res.data.id, content: res.data.name, className: 'sampleItem', start: firstBookYear, end: lastBookYear,
+                  id: 123, content: 'junk', className: 'sampleItem', start: 1, end: 2,
                 });
+                // reject(err);
               }
             });
           });
@@ -88,10 +165,11 @@ function formatTimelineIntoData(allBooksAllPoets) {
       }));
     });
     Promise.all(myDataset).then((finishedDataset) => {
+      console.log('filtering out finished dataset now: ');
       const filteredDataset = [];
       const seenIDs = [];
       for (let i = 0; i < finishedDataset.length; i += 1) {
-        if (seenIDs.indexOf(finishedDataset[i].id) === -1) {
+        if (finishedDataset[i] != undefined && finishedDataset[i].id !== 123 && seenIDs.indexOf(finishedDataset[i].id) === -1) {
           seenIDs.push(finishedDataset[i].id);
           filteredDataset.push(finishedDataset[i]);
         } else {
@@ -164,4 +242,4 @@ function findElement(toSearch, index) {
 }
 
 
-export { getAllBooksforPoetsWrapper, formatTimelineIntoData, sortBooks, findElement };
+export { getAllBooksforPoetsWrapper2, formatTimelineIntoData2, sortBooks, findElement };
