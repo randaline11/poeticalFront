@@ -1,12 +1,13 @@
 $red: #550000;
 $purple: #2E294E;
 $grey: #696969;
+$lightgrey: rgb(240, 240, 240);
 $color3: rgba(110,144,117, 0.7);
 body, html {
   font-family: "Roboto", sans-serif;
 
   background: darken(white, 0.2);
-  color: $red;
+  color: $grey;
 }
 
 h1 {
@@ -44,6 +45,55 @@ h1 {
   color: $grey;
   text-align: center;
   margin-bottom: 15px;
+}
+
+.postView {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  border: 2px dotted rgba(0,0,0,0);
+  align-items: center;
+  transition: 0.35s ease;
+  width: 400px;
+}
+
+.postView:hover, .postView:active {
+background: $lightgrey;
+}
+
+.poetDisplay {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.poetDisplayTitle {
+  @extend #display;
+  font-family: "Work Sans", sans-serif;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.black {
+  color: black;
+}
+
+.flexboxRow {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.flexbox-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
 }
 
 #display {

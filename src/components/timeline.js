@@ -117,9 +117,12 @@ class TimelineComponent extends Component {
       if (this.state.hovering) {
         poetComponent = (
           <div>
-            {this.state.poet.name}
-          Books:
-            <BookComponent books={this.state.poetsBooks} />
+            <div className="poetDisplayTitle bold black">
+              {this.state.poet.name}
+            </div>
+            <div className="poetDisplay">
+              <BookComponent books={this.state.poetsBooks} />
+            </div>
           </div>);
       }
       return (
@@ -133,7 +136,9 @@ class TimelineComponent extends Component {
           <div className="test">
             Explore up and down, left and right. CTRL to zoom in and out.
           </div>
-          {poetComponent}
+          <div className="poetDisplay">
+            {poetComponent}
+          </div>
         </div>);
     }
   }

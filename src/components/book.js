@@ -23,11 +23,14 @@ class BookComponent extends Component {
 
   render() {
     const toDisplay = this.props.books.map((book) => {
+      const url = (book.cover_url) ? book.cover_url : 'https://d30y9cdsu7xlg0.cloudfront.net/png/173841-200.png';
       return (
-        <div>
-          <img src={book.cover_url} alt={book.title} />
-          {book.title}
-          {book.first_publish_year}
+        <div className="postView">
+          <img src={url} alt={book.title} />
+          <div className="bold">{book.title}</div>
+          <div>first published {book.first_publish_year}</div>
+          <div> average rating {book.average_rating}</div>
+          <div> (based on {book.reviews} reviews)</div>
         </div>
       );
     });

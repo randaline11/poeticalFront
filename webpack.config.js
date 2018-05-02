@@ -1,5 +1,6 @@
 'use strict';
-var webpack = require('webpack');
+
+const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
@@ -9,15 +10,15 @@ const extractSass = new ExtractTextPlugin({
   disable: process.env.NODE_ENV === 'development',
 });
 
-var config = {
-  context: __dirname + '/src', // `__dirname` is root of project and `src` is source
+const config = {
+  context: `${__dirname}/src`, // `__dirname` is root of project and `src` is source
   entry: {
     app: './app.js',
   },
   output: {
-    path: __dirname + '/dist', // `dist` is the destination
+    path: `${__dirname}/dist`, // `dist` is the destination
     filename: 'bundle.js',
-    publicPath: "/",
+    publicPath: '/',
   },
   plugins: [
     /* prevent that webpack loads momentjs-support for all languages. Only DE and EN.
@@ -27,31 +28,31 @@ var config = {
   ],
   module: {
     rules: [{
-        test: /node_modules[\\\/]vis[\\\/].*\.js$/, // vis.js files
-        loader: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-          presets: [ "babel-preset-es2015" ].map(require.resolve),
-          plugins: [
-            "transform-es3-property-literals", // see https://github.com/almende/vis/pull/2452
-            "transform-es3-member-expression-literals", // see https://github.com/almende/vis/pull/2566
-            "transform-runtime" // see https://github.com/almende/vis/pull/2566
-          ]
-        }
-      }, {
-        test: /\.js$/, //Check for all js files
-        loader: 'babel-loader',
-        query: {
-          presets: [ "babel-preset-es2015" ].map(require.resolve)
-        }
-      }, {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+      test: /node_modules[\\\/]vis[\\\/].*\.js$/, // vis.js files
+      loader: 'babel-loader',
+      query: {
+        cacheDirectory: true,
+        presets: ['babel-preset-es2015'].map(require.resolve),
+        plugins: [
+          'transform-es3-property-literals', // see https://github.com/almende/vis/pull/2452
+          'transform-es3-member-expression-literals', // see https://github.com/almende/vis/pull/2566
+          'transform-runtime', // see https://github.com/almende/vis/pull/2566
+        ],
       },
-      {
+    }, {
+      test: /\.js$/, // Check for all js files
+      loader: 'babel-loader',
+      query: {
+        presets: ['babel-preset-es2015'].map(require.resolve),
+      },
+    }, {
+      test: /\.css$/,
+      use: [
+        'style-loader',
+        'css-loader',
+      ],
+    },
+    {
       test: /(\.scss)$/,
       use: extractSass.extract({
         use: [
@@ -72,36 +73,36 @@ var config = {
         ],
         fallback: 'style-loader', // use style-loader in development mode
       }),
-    },{
-        test: /.*\.png$/i,
-        loaders: [ 'file-loader', {
-          loader: 'image-webpack-loader',
-          query: {
-            progressive: true,
-            pngquant: {
-              quality: '65-90',
-              speed: 4
-            }
-          }
-        }
-      ]
-      }
-    ]
+    }, {
+      test: /.*\.png$/i,
+      loaders: ['file-loader', {
+        loader: 'image-webpack-loader',
+        query: {
+          progressive: true,
+          pngquant: {
+            quality: '65-90',
+            speed: 4,
+          },
+        },
+      },
+      ],
+    },
+    ],
   },
   plugins: [
-  extractSass,
-],
-  //To run development server
+    extractSass,
+  ],
+  // To run development server
   devServer: {
-    contentBase: __dirname + '/src',
+    contentBase: `${__dirname}/src`,
   },
 
-  devtool: "eval-source-map" // Default development sourcemap
+  devtool: 'eval-source-map', // Default development sourcemap
 };
 
 // Check if build is running in production mode, then change the sourcemap type
-if (process.env.NODE_ENV === "production") {
-  config.devtool = "source-map";
+if (process.env.NODE_ENV === 'production') {
+  config.devtool = 'source-map';
 
   // Can do more here
   // JSUglify plugin
