@@ -15,8 +15,9 @@ class TimelineComponent extends Component {
       poet: '',
     };
     this.setupTimeline = this.setupTimeline.bind(this);
-    this.onHoverHandler = this.onHoverHandler.bind(this);
+    this.onClickHandler = this.onClickHandler.bind(this);
     this.displayPoet = this.displayPoet.bind(this);
+    this.settingWindow = this.settingWindow.bind(this);
   }
 
   componentWillMount() {
@@ -33,7 +34,7 @@ class TimelineComponent extends Component {
     }
   }
 
-  onHoverHandler(e) {
+  onClickHandler(e) {
     if (e.item !== null) {
       console.log('item: ', e);
       console.log('this.state.peots: ', this.state.poets);
@@ -56,6 +57,14 @@ class TimelineComponent extends Component {
         poetsBooks,
       });
     }
+  }
+
+  onMouseoverHandler(e) {
+
+  }
+
+  settingWindow() {
+    setWindow(moment(1960, 'YYYY'), moment(2018, 'YYYY'), { animation: true });
   }
 
   setupTimeline() {
@@ -83,8 +92,8 @@ class TimelineComponent extends Component {
             zoomMin: 259200000000,
             zoomMax: 63072000000000,
             zoomable: true,
-            showCurrentTime: true,
-
+            showCurrentTime: false,
+            onInitialDrawComplete: this.settingWindow,
             max: moment(2020, 'YYYY'),
             min: moment(1400, 'YYYY'),
           };
@@ -131,7 +140,11 @@ class TimelineComponent extends Component {
             options={this.state.options}
             items={this.state.data}
             groups={this.state.groups}
-            mouseOverHandler={this.onHoverHandler}
+            clickHandler={this.onClickHandler}
+            animation={{
+  duration: 3000,
+  easingFunction: 'easeInQuint',
+}}
           />
           <div className="test">
             Explore up and down, left and right. CTRL to zoom in and out.
