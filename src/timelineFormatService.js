@@ -60,7 +60,7 @@ function sortBooks(toSort) {
 function formatTimelineIntoData2(allBooksAllPoets) {
   return new Promise((fulfill, reject) => {
     const myDataset = [];
-    allBooksAllPoets.poets.data.forEach((poet) => {
+    allBooksAllPoets.poets.data.forEach((poet, idx) => {
       myDataset.push(new Promise((fulfill2, reject2) => {
         const grabbedBookIds = checkForAllBooks(poet, allBooksAllPoets);
         const sorted = sortBooks(grabbedBookIds);
@@ -88,9 +88,9 @@ function formatTimelineIntoData2(allBooksAllPoets) {
         const lastBookYear = moment(endYear, 'YYYY');
         console.log('firstBookYear: ', sorted[0].first_publish_year);
         console.log('lastBookYear: ', endYear);
-
+        console.log('idx:', idx);
         fulfill2({
-          id: poet.id, content: poet.name, className: 'sampleItem', start: firstBookYear, end: lastBookYear,
+          id: poet.id, content: poet.name, className: 'sampleItem', group: 1, subgroup: idx, start: firstBookYear, end: lastBookYear,
         });
       }));
     });

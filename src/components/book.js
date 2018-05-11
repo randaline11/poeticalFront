@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import Timeline from 'react-visjs-timeline';
-import moment from 'moment';
-import * as timelineFunctions from '../timelineFormatService';
-import * as axiosFunctions from '../axios';
 
 import '../style.scss';
 
@@ -13,11 +9,6 @@ class BookComponent extends Component {
       hovering: false,
       poet: '',
     };
-    this.formatBookData = this.formatBookData.bind(this);
-  }
-
-  formatBookData() {
-
   }
 
 

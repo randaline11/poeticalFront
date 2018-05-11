@@ -3,10 +3,12 @@ import 'vis/dist/vis.min.css';
 import moment from 'moment';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
+import dotenv from 'dotenv';
 import './style.scss';
 
 import TimelineComponent from './components/timeline';
+
+dotenv.config({ silent: true });
 
 
 // var data = new DataSet([
@@ -25,7 +27,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      addTerm: '',
     };
   }
 

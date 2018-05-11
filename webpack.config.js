@@ -16,9 +16,13 @@ const config = {
     app: './app.js',
   },
   output: {
-    path: `${__dirname}/dist`, // `dist` is the destination
+    path: path.join(__dirname, 'public/build'),
+    // path: `${__dirname}/dist`, // `dist` is the destination
     filename: 'bundle.js',
-    publicPath: '/',
+    publicPath: '/build/',
+  },
+  node: {
+    fs: 'empty',
   },
   plugins: [
     /* prevent that webpack loads momentjs-support for all languages. Only DE and EN.

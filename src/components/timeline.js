@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import Timeline from 'react-visjs-timeline';
+// import Timeline from 'react-visjs-timeline';
+import Timeline from 'react-visjs-timeline-randaline-fork';
 import moment from 'moment';
 import * as timelineFunctions from '../timelineFormatService';
 import * as axiosFunctions from '../axios';
 import BookComponent from './book';
+import SearchComponent from './search';
 
 import '../style.scss';
 
@@ -13,11 +15,13 @@ class TimelineComponent extends Component {
     this.state = {
       hovering: false,
       poet: '',
+      firstTime: true,
     };
     this.setupTimeline = this.setupTimeline.bind(this);
     this.onClickHandler = this.onClickHandler.bind(this);
     this.displayPoet = this.displayPoet.bind(this);
-    this.settingWindow = this.settingWindow.bind(this);
+    this.timelineRefHandler = this.timelineRefHandler.bind(this);
+    this.myCallback = this.myCallback.bind(this);
   }
 
   componentWillMount() {
@@ -29,10 +33,19 @@ class TimelineComponent extends Component {
           options: params.options,
           poets: params.poets,
           books: params.books,
+          groups: params.groups,
         });
       });
     }
   }
+  componentDidMount() {
+    if (this.state.timeline) {
+      console.log('we got the timeline in time!');
+    } else {
+      console.log('nope');
+    }
+  }
+
 
   onClickHandler(e) {
     if (e.item !== null) {
@@ -50,6 +63,10 @@ class TimelineComponent extends Component {
 
       console.log('thisPoet: ', thisPoet);
       console.log('poetsBooks: ', poetsBooks);
+
+
+      const items = this.state.myTimeline.getWindow();
+      console.log('items after click: ', items);
       this.setState({
         hovering: true,
         id: e.item,
@@ -57,14 +74,6 @@ class TimelineComponent extends Component {
         poetsBooks,
       });
     }
-  }
-
-  onMouseoverHandler(e) {
-
-  }
-
-  settingWindow() {
-    setWindow(moment(1960, 'YYYY'), moment(2018, 'YYYY'), { animation: true });
   }
 
   setupTimeline() {
@@ -77,6 +86,9 @@ class TimelineComponent extends Component {
               id: 1,
               content: 'Group 1',
               className: 'sample',
+              subgroupStack: 'true',
+              style: 'width: 5px;',
+
               // Optional: a field 'className', 'style', 'order', [properties]
             },
             // more groups...
@@ -93,7 +105,12 @@ class TimelineComponent extends Component {
             zoomMax: 63072000000000,
             zoomable: true,
             showCurrentTime: false,
-            onInitialDrawComplete: this.settingWindow,
+            showTooltip: true,
+            tooltip: {
+              followMouse: true,
+
+            },
+            stack: true,
             max: moment(2020, 'YYYY'),
             min: moment(1400, 'YYYY'),
           };
@@ -101,6 +118,7 @@ class TimelineComponent extends Component {
           const params = {
             data: dataset,
             options,
+            groups,
             poets: allBooksAllPoets.poets.data,
             books: allBooksAllPoets.books.data,
           };
@@ -118,7 +136,36 @@ class TimelineComponent extends Component {
     });
   }
 
+  myCallback() {
+    console.log('did we even get here?');
+  }
+  timelineRefHandler(timeline) {
+    console.log('hallo made it here!');
+    if (this.state.firstTime === true) {
+      console.log('firstTime is true!');
+      console.log(timeline.setWindow);
+      // timeline.setWindow(moment(1960, 'YYYY'), moment(1970, 'YYYY'));
+      //  console.log(timeline.zoomIn());
+      console.log(timeline.timeAxis.options.rtl);
+      //  timeline.timeAxis.options.rtl = true;
+      const theWindow = timeline.getVisibleItems();
+      console.log('window: ', theWindow);
+      this.setState({
+        firstTime: false,
+        myTimeline: timeline,
+      }, () => {
+        console.log('did it succeed? ', this.state);
+        setTimeout(() => {
+          //    const theWindow = this.state.myTimeline.getVisibleItems();
+          //    console.log('window: ', theWindow);
+          this.state.myTimeline.setWindow(moment(1960, 'YYYY'), moment(1970, 'YYYY'), { animation: { duration: 1500, easingFunction: 'easeInOutQuad' } });
+        }, 500);
+      });
+    }
+  }
+
   render() {
+    console.log('timeline: ', this.state.myTimeline);
     let poetComponent;
     if (this.state.options == undefined || this.state.data == undefined) {
       return <div>Loading... </div>;
@@ -136,15 +183,13 @@ class TimelineComponent extends Component {
       }
       return (
         <div>
+          <SearchComponent allPoets={this.state.poets} allBooks={this.state.books} />
           <Timeline
             options={this.state.options}
             items={this.state.data}
             groups={this.state.groups}
             clickHandler={this.onClickHandler}
-            animation={{
-  duration: 3000,
-  easingFunction: 'easeInQuint',
-}}
+            timelineRef={this.timelineRefHandler}
           />
           <div className="test">
             Explore up and down, left and right. CTRL to zoom in and out.
