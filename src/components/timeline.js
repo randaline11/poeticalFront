@@ -20,6 +20,7 @@ class TimelineComponent extends Component {
     };
     this.setupTimeline = this.setupTimeline.bind(this);
     this.onClickHandler = this.onClickHandler.bind(this);
+    this.onClickHandlerLocal = this.onClickHandlerLocal.bind(this);
     this.displayPoet = this.displayPoet.bind(this);
     this.timelineRefHandler = this.timelineRefHandler.bind(this);
     this.myCallback = this.myCallback.bind(this);
@@ -74,6 +75,27 @@ class TimelineComponent extends Component {
         hovering: true,
         id: e.item,
         poet: thisPoet,
+        poetsBooks,
+      });
+    }
+  }
+
+  onClickHandlerLocal(poet) {
+    if (poet) {
+      console.log('item: ', poet);
+      let i = 0;
+      const poetsBooks = [];
+      while (i < poet.books.length) {
+        const specificBook = this.state.books.find((book) => { return book.id === poet.books[i]; });
+        poetsBooks.push(specificBook);
+        i += 1;
+      }
+      const items = this.state.myTimeline.getWindow();
+      console.log('items after click: ', items);
+      this.setState({
+        hovering: true,
+        id: poet.id,
+        poet,
         poetsBooks,
       });
     }
@@ -151,6 +173,7 @@ class TimelineComponent extends Component {
   myCallback() {
     console.log('did we even get here?');
   }
+
   timelineRefHandler(timeline) {
     if (this.state.firstTime === true) {
       console.log('firstTime is true!');
@@ -172,6 +195,14 @@ class TimelineComponent extends Component {
 
   searchHandler(searchTerm) {
     console.log('searchHandler. Searchterm: ', searchTerm);
+    const found = this.state.poets.find((e) => {
+      return e.name === searchTerm;
+    });
+    console.log('found: ', found);
+    if (found) {
+      this.state.myTimeline.setSelection(found.id, { focus: true });
+      this.onClickHandlerLocal(found);
+    }
   }
 
   render() {
@@ -193,7 +224,7 @@ class TimelineComponent extends Component {
       }
       return (
         <div>
-          <SearchComponent allPoets={this.state.poetNames} allBooks={this.state.books} />
+          <SearchComponent allPoets={this.state.poetNames} allBooks={this.state.books} searchHandler={this.searchHandler} />
           <Timeline
             options={this.state.options}
             items={this.state.data}

@@ -7,7 +7,7 @@ class SearchComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: '',
+      searchTerm: 'Gregory Pardlo',
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
