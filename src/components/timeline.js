@@ -16,12 +16,15 @@ class TimelineComponent extends Component {
       hovering: false,
       poet: '',
       firstTime: true,
+      poetNames: [],
     };
     this.setupTimeline = this.setupTimeline.bind(this);
     this.onClickHandler = this.onClickHandler.bind(this);
     this.displayPoet = this.displayPoet.bind(this);
     this.timelineRefHandler = this.timelineRefHandler.bind(this);
     this.myCallback = this.myCallback.bind(this);
+    this.searchHandler = this.searchHandler.bind(this);
+    this.mapPoetNames = this.mapPoetNames.bind(this);
   }
 
   componentWillMount() {
@@ -136,20 +139,22 @@ class TimelineComponent extends Component {
     });
   }
 
+  mapPoetNames() {
+    // need to arrange all poets by name
+    const toStart = this.state.poets.map((poet) => {
+      return poet.name;
+    });
+    console.log('tostart is: ', toStart);
+    this.setState({ poetNames: toStart });
+  }
+
   myCallback() {
     console.log('did we even get here?');
   }
   timelineRefHandler(timeline) {
-    console.log('hallo made it here!');
     if (this.state.firstTime === true) {
       console.log('firstTime is true!');
-      console.log(timeline.setWindow);
-      // timeline.setWindow(moment(1960, 'YYYY'), moment(1970, 'YYYY'));
-      //  console.log(timeline.zoomIn());
-      console.log(timeline.timeAxis.options.rtl);
-      //  timeline.timeAxis.options.rtl = true;
       const theWindow = timeline.getVisibleItems();
-      console.log('window: ', theWindow);
       this.setState({
         firstTime: false,
         myTimeline: timeline,
@@ -159,9 +164,14 @@ class TimelineComponent extends Component {
           //    const theWindow = this.state.myTimeline.getVisibleItems();
           //    console.log('window: ', theWindow);
           this.state.myTimeline.setWindow(moment(1960, 'YYYY'), moment(1970, 'YYYY'), { animation: { duration: 1500, easingFunction: 'easeInOutQuad' } });
+          this.mapPoetNames();
         }, 500);
       });
     }
+  }
+
+  searchHandler(searchTerm) {
+    console.log('searchHandler. Searchterm: ', searchTerm);
   }
 
   render() {
@@ -183,7 +193,7 @@ class TimelineComponent extends Component {
       }
       return (
         <div>
-          <SearchComponent allPoets={this.state.poets} allBooks={this.state.books} />
+          <SearchComponent allPoets={this.state.poetNames} allBooks={this.state.books} />
           <Timeline
             options={this.state.options}
             items={this.state.data}

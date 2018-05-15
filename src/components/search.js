@@ -10,7 +10,7 @@ class SearchComponent extends Component {
       searchTerm: '',
     };
     this.changeHandler = this.changeHandler.bind(this);
-    this.beginSetup = this.beginSetup.bind(this);
+    this.searchHandler = this.searchHandler.bind(this);
   }
 
 
@@ -20,24 +20,18 @@ class SearchComponent extends Component {
       searchTerm: e,
     });
   }
-  componentDidMount() {
-    this.beginSetup();
-  }
 
-  beginSetup() {
-    // need to arrange all poets by name
-    const toStart = this.props.allPoets.map((poet) => {
-      return poet.name;
-    });
-    console.log('tostart is: ', toStart);
-    this.setState({ allPoets: toStart });
+  searchHandler() {
+    this.props.searchHandler(this.state.searchTerm);
   }
 
   render() {
+    console.log('allPoetNames: ', this.props.allPoets);
     return (
       <div>
       Search:
-        <TextInput Component="Input" onChange={this.changeHandler} defaultValue="Gregory Pardlo" maxOptions={10} trigger="" options={this.state.allPoets} />
+        <TextInput Component="Input" onChange={this.changeHandler} defaultValue="Gregory Pardlo" maxOptions={10} trigger="" options={this.props.allPoets} />
+        <button onClick={this.searchHandler}>Submit</button>
       </div>
     );
   }
