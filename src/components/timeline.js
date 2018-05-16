@@ -130,10 +130,9 @@ class TimelineComponent extends Component {
             zoomMax: 63072000000000,
             zoomable: true,
             showCurrentTime: false,
-            showTooltip: true,
+            showTooltips: true,
             tooltip: {
               followMouse: true,
-
             },
             stack: true,
             max: moment(2020, 'YYYY'),

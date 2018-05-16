@@ -45,13 +45,21 @@ h1 {
   padding-bottom: 0px;
 }
 
+.customTooltip {
+  color: $purple;
+  border: 1px solid $purple;
+  background-color: rgba(255,255,255, 1);
+  margin: -5px;
+  padding: -5px;
+}
+
 .searchBar {
   margin-bottom: 10px;
   margin-left: 2px;
 }
 
 .vis-group.sample {
-  color: $purple;
+  color: $purple ;
 }
 
 .vis-timeline {

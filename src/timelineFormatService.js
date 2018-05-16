@@ -89,8 +89,10 @@ function formatTimelineIntoData2(allBooksAllPoets) {
         console.log('firstBookYear: ', sorted[0].first_publish_year);
         console.log('lastBookYear: ', endYear);
         console.log('idx:', idx);
+
+        const theTitle = `<div class="customTooltip">${poet.name}</div>`;
         fulfill2({
-          id: poet.id, content: poet.name, className: 'sampleItem', group: 1, subgroup: idx, start: firstBookYear, end: lastBookYear,
+          id: poet.id, title: theTitle, content: poet.name, className: 'sampleItem', group: 1, subgroup: idx, start: firstBookYear, end: lastBookYear,
         });
       }));
     });
