@@ -217,7 +217,7 @@ class TimelineComponent extends Component {
             <div className="poetDisplayTitle bold black">
               {this.state.poet.name}
             </div>
-            <LineChartComponent />
+            <LineChartComponent books={this.state.poetsBooks} />
             <div className="poetDisplay">
               <BookComponent books={this.state.poetsBooks} />
             </div>
