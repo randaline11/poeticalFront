@@ -6,6 +6,7 @@ import * as timelineFunctions from '../timelineFormatService';
 import * as axiosFunctions from '../axios';
 import BookComponent from './book';
 import SearchComponent from './search';
+import LineChartComponent from './linechart';
 
 import '../style.scss';
 
@@ -216,6 +217,7 @@ class TimelineComponent extends Component {
             <div className="poetDisplayTitle bold black">
               {this.state.poet.name}
             </div>
+            <LineChartComponent />
             <div className="poetDisplay">
               <BookComponent books={this.state.poetsBooks} />
             </div>
