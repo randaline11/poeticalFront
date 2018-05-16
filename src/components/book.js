@@ -28,17 +28,21 @@ class BookComponent extends Component {
   // }
 
   render() {
-    const url = (this.props.book.cover_url) ? this.props.book.cover_url : 'https://d30y9cdsu7xlg0.cloudfront.net/png/173841-200.png';
-    return (
-      <div className="postView">
-        <img src={url} alt={this.props.book.title} />
-        <div className="bold">{this.props.book.title}</div>
-        <div>first published {this.props.book.first_publish_year}</div>
-        <div> average rating {this.props.book.average_rating}</div>
-        <div> (based on {this.props.book.reviews} reviews)</div>
-      </div>
-    );
-    return toDisplay;
+    console.log('rendering book. ');
+    if (this.props.book) {
+      const url = (this.props.book.cover_url) ? this.props.book.cover_url : 'https://d30y9cdsu7xlg0.cloudfront.net/png/173841-200.png';
+      return (
+        <div className="postView">
+          <img src={url} alt={this.props.book.title} />
+          <div className="bold">{this.props.book.title}</div>
+          <div>first published {this.props.book.first_publish_year}</div>
+          <div> average rating {this.props.book.average_rating}</div>
+          <div> (based on {this.props.book.reviews} reviews)</div>
+        </div>
+      );
+    } else {
+      return <div />;
+    }
   }
 }
 

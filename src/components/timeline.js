@@ -212,15 +212,15 @@ class TimelineComponent extends Component {
       return <div>Loading... </div>;
     } else {
       if (this.state.hovering) {
+        const formattedPoetName = this.state.poet.name.replace(/ /g, '-');
+        const link = `https://www.poets.org/poetsorg/poet/${formattedPoetName}`;
         poetComponent = (
           <div>
             <div className="poetDisplayTitle bold black">
               {this.state.poet.name}
+              <a href={link}> Wikipedia </a>
             </div>
             <LineChartComponent books={this.state.poetsBooks} />
-            <div className="poetDisplay">
-              <BookComponent books={this.state.poetsBooks} />
-            </div>
           </div>);
       }
       return (
