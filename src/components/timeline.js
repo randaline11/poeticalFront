@@ -213,12 +213,16 @@ class TimelineComponent extends Component {
     } else {
       if (this.state.hovering) {
         const formattedPoetName = this.state.poet.name.replace(/ /g, '-');
-        const link = `https://www.poets.org/poetsorg/poet/${formattedPoetName}`;
+        const linkpoet = `https://www.poets.org/poetsorg/poet/${formattedPoetName}`;
+        const linkpoet2 = `https://www.poetryfoundation.org/poets/${formattedPoetName}`;
+        const linkwiki = `https://en.wikipedia.org/wiki/${formattedPoetName}`;
         poetComponent = (
           <div>
             <div className="poetDisplayTitle bold black">
               {this.state.poet.name}
-              <a href={link}> Wikipedia </a>
+              <a href={linkpoet}> Acad Am Poets </a>
+              <a href={linkwiki}> Wikipedia </a>
+              <a href={linkpoet2}> Poet Found </a>
             </div>
             <LineChartComponent books={this.state.poetsBooks} />
           </div>);
@@ -226,15 +230,17 @@ class TimelineComponent extends Component {
       return (
         <div>
           <SearchComponent allPoets={this.state.poetNames} allBooks={this.state.books} searchHandler={this.searchHandler} />
-          <Timeline
-            options={this.state.options}
-            items={this.state.data}
-            groups={this.state.groups}
-            clickHandler={this.onClickHandler}
-            timelineRef={this.timelineRefHandler}
-          />
+          <div className="timelineWrapper">
+            <Timeline
+              options={this.state.options}
+              items={this.state.data}
+              groups={this.state.groups}
+              clickHandler={this.onClickHandler}
+              timelineRef={this.timelineRefHandler}
+            />
+          </div>
           <div className="test">
-            Explore up and down, left and right. CTRL to zoom in and out.
+            <h3>Explore up and down, left and right. CTRL to zoom in and out.</h3>
           </div>
           <div className="poetDisplay">
             {poetComponent}

@@ -8,10 +8,12 @@ class LineChartComponent extends Component {
     this.state = {
       hovering: false,
       bookHoveredOver: '',
+      sortingType: 'rating',
     };
     this.configureData = this.configureData.bind(this);
     this.sorter = this.sorter.bind(this);
     this.mouseOverHandler = this.mouseOverHandler.bind(this);
+    this.timelineSortingHandler = this.timelineSortingHandler.bind(this);
   }
 
   configureData() {
@@ -46,6 +48,11 @@ class LineChartComponent extends Component {
     }
   }
 
+  timelineSortingHandler(e, type) {
+    console.log('sorting handler!', e);
+    this.setState({ sortingType: e });
+  }
+
 
   render() {
     const toAdd = this.configureData();
@@ -56,12 +63,16 @@ class LineChartComponent extends Component {
       });
       tile = (<BookComponent book={bookFound} />);
     }
+    const yAxis = (this.state.sortingType === 'rating') ? 'rating' : 'reviews';
     return (
       <div>
+        Sort:
+        <button type="submit" onClick={() => { this.timelineSortingHandler('rating'); }}>By rating </button>
+        <button type="submit" onClick={() => { this.timelineSortingHandler('popularity'); }}> by popularity </button>
         <LineChart width={1200} height={200} onMouseOver={this.mouseOverHandler} data={toAdd}>
           <XAxis type="number" domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
           <YAxis />
-          <Line type="monotone" dataKey="rating" stroke="#8884d8" />
+          <Line type="monotone" dataKey={yAxis} stroke="#8884d8" />
           <Tooltip />
         </LineChart>
         <div>

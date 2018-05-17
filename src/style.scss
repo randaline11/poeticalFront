@@ -5,18 +5,44 @@ $lightgrey: rgb(240, 240, 240);
 $color3: rgba(110,144,117, 0.7);
 body, html {
   font-family: "Roboto", sans-serif;
-
   background: darken(white, 0.2);
   color: $grey;
 }
 
 h1 {
-  text-align: center;
   color: $purple;
-  font-size: 48px;
   font-family: "Work Sans", sans-serif;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  padding: 0px;
 }
 
+.secondSelect {
+  background-color: #FFFFFF;
+}
+
+input {
+  color: #000000;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.Select-input {
+  background-color: #FFFFFF;
+}
+
+.Select-value .selectItem {
+  background-color: #FFFFFF;
+
+}
+
+
+.select-menu-outer {
+  background-color: $color3;
+
+}
 * {
   visibility: visible;
 }
@@ -64,6 +90,10 @@ h1 {
 
 .vis-timeline {
   visibility: visible;
+}
+
+.timelineWrapper{
+  margin-top: 50px;
 }
 
 .test {
