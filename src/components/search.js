@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TextInput from 'react-autocomplete-input';
 import Autocomplete from 'react-autocomplete';
 import '../style.scss';
 
@@ -7,44 +6,11 @@ class SearchComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: 'Gregory Pardlo',
-      suggestions: [],
+      searchTerm: '',
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
-    this.renderSuggestion = this.renderSuggestion.bind(this);
-    this.getSuggestionValue = this.getSuggestionValue.bind(this);
-    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
-    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
-    this.getSuggestions = this.getSuggestions.bind(this);
     this.changeHandler2 = this.changeHandler2.bind(this);
-  }
-
-
-  // Autosuggest will call this function every time you need to update suggestions.
-  // You already implemented this logic above, so just use it.
-  onSuggestionsFetchRequested({ value }) {
-    this.setState({
-      suggestions: this.getSuggestions(value),
-    });
-  }
-
-  // Autosuggest will call this function every time you need to clear suggestions.
-  onSuggestionsClearRequested() {
-    this.setState({
-      suggestions: [],
-    });
-  }
-
-  getSuggestionValue(suggestion) {
-    return suggestion.name;
-  }
-
-
-  getSuggestions() {
-    return this.props.allPoets.map((poet) => {
-      return { name: poet };
-    });
   }
 
   searchHandler() {
@@ -62,29 +28,19 @@ class SearchComponent extends Component {
     console.log('e: ', e);
     this.setState({
       searchTerm: e,
+    }, () => {
+      this.searchHandler();
     });
-  }
-
-  renderSuggestion(suggestion) {
-    return (
-      <div>
-        {suggestion.name}
-      </div>);
   }
 
   render() {
     console.log('allPoetNames: ', this.props.allPoets);
-    const format = this.props.allPoets.map((poet) => {
-      return { value: poet, className: 'selectItem', label: poet };
-    });
     const format2 = this.props.allPoets.map((poet) => {
       return { id: poet, label: poet };
     });
 
     return (
       <div>
-      Search:
-        <TextInput Component="Input" onChange={this.changeHandler} defaultValue="Gregory Pardlo" maxOptions={10} trigger="" options={this.props.allPoets} />
         <button onClick={this.searchHandler}>Submit</button>
         <Autocomplete
           getItemValue={item => item.label}
