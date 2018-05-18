@@ -4,7 +4,6 @@ import Timeline from 'react-visjs-timeline-randaline-fork';
 import moment from 'moment';
 import * as timelineFunctions from '../timelineFormatService';
 import * as axiosFunctions from '../axios';
-import BookComponent from './book';
 import SearchComponent from './search';
 import LineChartComponent from './linechart';
 
@@ -217,8 +216,8 @@ class TimelineComponent extends Component {
         const linkwiki = `https://en.wikipedia.org/wiki/${formattedPoetName}`;
         poetComponent = (
           <div>
-            <div className="poetDisplayTitle bold black">
-              {this.state.poet.name}
+            <div className="poetDisplayTitle">
+              <h1>{this.state.poet.name}</h1>
               <a href={linkpoet}><img src="https://pbs.twimg.com/profile_images/818597091215716353/5ejD1Ojs_400x400.jpg" style={{ width: '22px', height: '22px' }} /></a>
               <a href={linkwiki}><img src="https://image.flaticon.com/icons/png/512/49/49360.png" style={{ width: '22px', height: '22px' }} /></a>
             </div>
@@ -238,7 +237,7 @@ class TimelineComponent extends Component {
             />
           </div>
           <div className="test">
-            <h3>Explore up and down, left and right. CTRL to zoom in and out.</h3>
+            <h3>Scroll up and down, left and right with the trackpad. CTRL to zoom in and out. Click on a line to see more info on a poet.</h3>
           </div>
           <div className="poetDisplay">
             {poetComponent}

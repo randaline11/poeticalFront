@@ -62,6 +62,8 @@ class LineChartComponent extends Component {
         return book.first_publish_year === this.state.bookHoveredOver;
       });
       tile = (<BookComponent book={bookFound} />);
+    } else {
+      tile = (<BookComponent book={undefined} />);
     }
     const yAxis = (this.state.sortingType === 'rating') ? 'rating' : 'reviews';
     const options = {
@@ -82,18 +84,21 @@ class LineChartComponent extends Component {
         Sort:
         <button type="submit" onClick={() => { this.timelineSortingHandler('rating'); }}>By Rating </button>
         <button type="submit" onClick={() => { this.timelineSortingHandler('popularity'); }}>By Popularity </button>
-        <LineChart width={1200}
-          height={200}
-          onMouseOver={this.mouseOverHandler}
-          data={toAdd}
-        >
-          <XAxis type="number" domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
-          <YAxis />
-          <Line type="monotone" dataKey={yAxis} stroke="#8884d8" strokeWidth={2} />
-          <Tooltip />
-        </LineChart>
-        <div>
-          {tile}
+        <div>currently displaying {this.state.sortingType} over time</div>
+        <div className="timelineTile">
+          <LineChart width={1200}
+            height={200}
+            onMouseOver={this.mouseOverHandler}
+            data={toAdd}
+          >
+            <XAxis type="number" domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
+            <YAxis />
+            <Line type="monotone" dataKey={yAxis} stroke="#8884d8" strokeWidth={2} />
+            <Tooltip />
+          </LineChart>
+          <div>
+            {tile}
+          </div>
         </div>
       </div>
     );

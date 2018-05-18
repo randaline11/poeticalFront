@@ -62,6 +62,11 @@ ul {
 
 }
 
+.timelineTile {
+  display: flex;
+  justify-content: space-between;
+}
+
 
 .select-menu-outer {
   background-color: $color3;
@@ -140,6 +145,15 @@ ul {
 background: $lightgrey;
 }
 
+.postViewPlaceholder {
+  width: 400px;
+
+}
+
+.postViewPlaceholder:hover {
+
+}
+
 .poetDisplay {
   display: flex;
   flex-direction: row;
@@ -149,8 +163,8 @@ background: $lightgrey;
 }
 
 .poetDisplayTitle {
-  @extend #display;
-  font-family: "Work Sans", sans-serif;
+  @extend .poetDisplay;
+  justify-content: center;
 }
 
 .bold {
