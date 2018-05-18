@@ -64,15 +64,32 @@ class LineChartComponent extends Component {
       tile = (<BookComponent book={bookFound} />);
     }
     const yAxis = (this.state.sortingType === 'rating') ? 'rating' : 'reviews';
+    const options = {
+      borderWidth: 3,
+      borderColor: '#2E294E',
+      backgroundColor: '#000000',
+    };
+    const chartData = {
+      datasets: [{
+        data: toAdd,
+        backgroundColor: [
+          '#8884d8',
+        ],
+      }],
+    };
     return (
       <div>
         Sort:
-        <button type="submit" onClick={() => { this.timelineSortingHandler('rating'); }}>By rating </button>
-        <button type="submit" onClick={() => { this.timelineSortingHandler('popularity'); }}> by popularity </button>
-        <LineChart width={1200} height={200} onMouseOver={this.mouseOverHandler} data={toAdd}>
+        <button type="submit" onClick={() => { this.timelineSortingHandler('rating'); }}>By Rating </button>
+        <button type="submit" onClick={() => { this.timelineSortingHandler('popularity'); }}>By Popularity </button>
+        <LineChart width={1200}
+          height={200}
+          onMouseOver={this.mouseOverHandler}
+          data={toAdd}
+        >
           <XAxis type="number" domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
           <YAxis />
-          <Line type="monotone" dataKey={yAxis} stroke="#8884d8" />
+          <Line type="monotone" dataKey={yAxis} stroke="#8884d8" strokeWidth={2} />
           <Tooltip />
         </LineChart>
         <div>

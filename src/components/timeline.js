@@ -214,21 +214,19 @@ class TimelineComponent extends Component {
       if (this.state.hovering) {
         const formattedPoetName = this.state.poet.name.replace(/ /g, '-');
         const linkpoet = `https://www.poets.org/poetsorg/poet/${formattedPoetName}`;
-        const linkpoet2 = `https://www.poetryfoundation.org/poets/${formattedPoetName}`;
         const linkwiki = `https://en.wikipedia.org/wiki/${formattedPoetName}`;
         poetComponent = (
           <div>
             <div className="poetDisplayTitle bold black">
               {this.state.poet.name}
-              <a href={linkpoet}> Acad Am Poets </a>
-              <a href={linkwiki}> Wikipedia </a>
-              <a href={linkpoet2}> Poet Found </a>
+              <a href={linkpoet}><img src="https://pbs.twimg.com/profile_images/818597091215716353/5ejD1Ojs_400x400.jpg" style={{ width: '22px', height: '22px' }} /></a>
+              <a href={linkwiki}><img src="https://image.flaticon.com/icons/png/512/49/49360.png" style={{ width: '22px', height: '22px' }} /></a>
             </div>
             <LineChartComponent books={this.state.poetsBooks} />
           </div>);
       }
       return (
-        <div>
+        <div className="mainFlex">
           <SearchComponent allPoets={this.state.poetNames} allBooks={this.state.books} searchHandler={this.searchHandler} />
           <div className="timelineWrapper">
             <Timeline

@@ -6,7 +6,7 @@ class SearchComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: '',
+      searchTerm: 'Robert Frost',
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
@@ -40,9 +40,10 @@ class SearchComponent extends Component {
     });
 
     return (
-      <div>
-        <button onClick={this.searchHandler}>Submit</button>
+      <div className="search">
+        <h3>Search for a poet:</h3>
         <Autocomplete
+          className="autocomplete"
           getItemValue={item => item.label}
           items={format2}
           shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
