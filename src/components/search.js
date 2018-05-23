@@ -41,7 +41,9 @@ class SearchComponent extends Component {
 
     return (
       <div className="search">
-        <h3>Search for a poet:</h3>
+        <div className="searchTitle">
+          <h3> Search for a poet: </h3>
+        </div>
         <Autocomplete
           className="autocomplete"
           getItemValue={item => item.label}
@@ -52,12 +54,13 @@ class SearchComponent extends Component {
   boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
   background: 'rgba(255, 255, 255, 0.9)',
   padding: '2px 0',
-  fontSize: '90%',
+  fontSize: '110%',
   position: 'fixed',
   overflow: 'auto',
   height: '50px',
   maxHeight: '25%', // TODO: don't cheat, let it flow to the bottom
-  'margin-bottom': '50px',
+  marginBottom: '50px',
+  marginLeft: '3px',
 }}
           renderItem={(item, isHighlighted) =>
     (<div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>

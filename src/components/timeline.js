@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-// import Timeline from 'react-visjs-timeline';
 import Timeline from 'react-visjs-timeline-randaline-fork';
 import moment from 'moment';
+import { Steps } from 'intro.js-react';
+import 'intro.js/introjs.css';
+
 import * as timelineFunctions from '../timelineFormatService';
 import * as axiosFunctions from '../axios';
 import SearchComponent from './search';
 import LineChartComponent from './linechart';
 
 import '../style.scss';
+
 
 class TimelineComponent extends Component {
   constructor(props) {
@@ -17,6 +20,8 @@ class TimelineComponent extends Component {
       poet: '',
       firstTime: true,
       poetNames: [],
+      initialStep: 0,
+      stepsEnabled: false,
     };
     this.setupTimeline = this.setupTimeline.bind(this);
     this.onClickHandler = this.onClickHandler.bind(this);
@@ -26,6 +31,9 @@ class TimelineComponent extends Component {
     this.myCallback = this.myCallback.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
     this.mapPoetNames = this.mapPoetNames.bind(this);
+    this.onExitSteps = this.onExitSteps.bind(this);
+    this.startSteps = this.startSteps.bind(this);
+    this.createSteps = this.createSteps.bind(this);
   }
 
   componentWillMount() {
@@ -101,6 +109,10 @@ class TimelineComponent extends Component {
     }
   }
 
+  onExitSteps() {
+    this.setState({ stepsEnabled: false });
+  }
+
   setupTimeline() {
     return new Promise((fulfill, reject) => {
       timelineFunctions.getAllBooksforPoetsWrapper2().then((allBooksAllPoets) => {
@@ -134,6 +146,7 @@ class TimelineComponent extends Component {
             tooltip: {
               followMouse: true,
             },
+            clickToUse: true,
             stack: true,
             max: moment(2020, 'YYYY'),
             min: moment(1400, 'YYYY'),
@@ -150,6 +163,10 @@ class TimelineComponent extends Component {
         });
       });
     });
+  }
+
+  startSteps() {
+    this.setState({ stepsEnabled: true });
   }
 
   displayPoet() {
@@ -171,6 +188,24 @@ class TimelineComponent extends Component {
 
   myCallback() {
     console.log('did we even get here?');
+  }
+
+  createSteps() {
+    const steps = [
+      {
+        element: '.timelineWrapper',
+        intro: 'Click to use the timeline. Navigate by scrolling up and down, left and right. Pinch in and out to zoom (ctrl on desktop). Click a poet to know more about them.',
+      },
+      {
+        element: '.search',
+        intro: 'Type in a poet to search the timeline.',
+      },
+      {
+        element: '.poetDisplay',
+        intro: 'graphs more info on a poet will show up here. Hover over the points on the graph to get info on specific books.',
+      },
+    ];
+    return steps;
   }
 
   timelineRefHandler(timeline) {
@@ -207,6 +242,7 @@ class TimelineComponent extends Component {
   render() {
     console.log('timeline: ', this.state.myTimeline);
     let poetComponent;
+    let steps;
     if (this.state.options == undefined || this.state.data == undefined) {
       return <div>Loading... </div>;
     } else {
@@ -224,9 +260,27 @@ class TimelineComponent extends Component {
             <LineChartComponent books={this.state.poetsBooks} />
           </div>);
       }
+
+      if (this.state.stepsEnabled) {
+        const stepsToAdd = this.createSteps();
+        steps = (
+          <Steps
+            enabled={this.state.stepsEnabled}
+            steps={stepsToAdd}
+            initialStep={this.state.initialStep}
+            onExit={this.onExitSteps}
+          />
+        );
+      } else {
+        steps = <div />;
+      }
       return (
         <div className="mainFlex">
-          <SearchComponent allPoets={this.state.poetNames} allBooks={this.state.books} searchHandler={this.searchHandler} />
+          {steps}
+          <div className="searchFlex">
+            <button className="firstTimeButton" onClick={this.startSteps}> First time using the site? </button>
+            <SearchComponent allPoets={this.state.poetNames} allBooks={this.state.books} searchHandler={this.searchHandler} />
+          </div>
           <div className="timelineWrapper">
             <Timeline
               options={this.state.options}
@@ -237,7 +291,7 @@ class TimelineComponent extends Component {
             />
           </div>
           <div className="test">
-            <h3>Scroll up and down, left and right with the trackpad. CTRL to zoom in and out. Click on a line to see more info on a poet.</h3>
+            <h3>Click to use. Scroll up and down, left and right with the trackpad. CTRL to zoom in and out. Click on a line to see more info on a poet.</h3>
           </div>
           <div className="poetDisplay">
             {poetComponent}
