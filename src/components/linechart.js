@@ -8,7 +8,7 @@ class LineChartComponent extends Component {
     this.state = {
       hovering: false,
       bookHoveredOver: '',
-      sortingType: 'rating',
+      sortingType: 'popularity',
     };
     this.configureData = this.configureData.bind(this);
     this.sorter = this.sorter.bind(this);
@@ -72,6 +72,8 @@ class LineChartComponent extends Component {
       tile = (<BookComponent book={undefined} />);
     }
     const yAxis = (this.state.sortingType === 'rating') ? 'rating' : 'reviews';
+    const yAxisDomain = (this.state.sortingType === 'rating') ? [0, 5] : null;
+    const yAxisLabel = (this.state.sortingType === 'rating') ? 'Avg Rating' : 'Review Count';
     const options = {
       borderWidth: 3,
       borderColor: '#2E294E',
@@ -96,11 +98,14 @@ class LineChartComponent extends Component {
           <div>
             <LineChart width={1200}
               height={200}
+              margin={{
+ top: 15, right: 30, left: 20, bottom: 5,
+}}
               onMouseOver={this.mouseOverHandler}
               data={toAdd}
             >
-              <XAxis type="number" domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
-              <YAxis />
+              <XAxis type="number" label={{ value: 'Time (in Years)', position: 'insideBottom' }} domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
+              <YAxis domain={yAxisDomain} label={{ value: yAxisLabel, angle: -90, position: 'left' }} />
               <Line type="monotone" dataKey={yAxis} stroke="#8884d8" strokeWidth={2} />
               <Tooltip />
             </LineChart>
