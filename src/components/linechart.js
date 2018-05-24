@@ -18,6 +18,7 @@ class LineChartComponent extends Component {
 
   configureData() {
     const sorted = this.props.books.sort(this.sorter);
+    const isOriginal = {};
     let data = sorted.map((book) => {
       console.log('configure book: ', book);
       return {
@@ -29,7 +30,14 @@ class LineChartComponent extends Component {
       };
     });
     data = data.filter((book) => {
-      return (book.year > 1);
+      if (!isOriginal[book.year]) {
+        console.log('isOriginal: ', book.year);
+        console.log('isOriginal2:', isOriginal);
+        isOriginal[book.year] = book.name;
+        return (book.year > 1);
+      } else {
+        return false;
+      }
     });
     return data;
   }
@@ -73,7 +81,7 @@ class LineChartComponent extends Component {
     }
     const yAxis = (this.state.sortingType === 'rating') ? 'rating' : 'reviews';
     const yAxisDomain = (this.state.sortingType === 'rating') ? [0, 5] : null;
-    const yAxisLabel = (this.state.sortingType === 'rating') ? 'Avg Rating' : 'Review Count';
+    const yAxisLabel = (this.state.sortingType === 'rating') ? 'Avg Rating (out of 5)' : 'Review Count';
     const options = {
       borderWidth: 3,
       borderColor: '#2E294E',
@@ -104,8 +112,12 @@ class LineChartComponent extends Component {
               onMouseOver={this.mouseOverHandler}
               data={toAdd}
             >
-              <XAxis type="number" label={{ value: 'Time (in Years)', position: 'insideBottom' }} domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
-              <YAxis domain={yAxisDomain} label={{ value: yAxisLabel, angle: -90, position: 'left' }} />
+              <XAxis type="number" label={{ value: 'Time (in Years)', position: 'insideBottom', offset: -5 }} domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
+              <YAxis domain={yAxisDomain}
+                label={{
+ value: yAxisLabel, angle: -90, offset: 10, position: 'insideBottomLeft',
+}}
+              />
               <Line type="monotone" dataKey={yAxis} stroke="#8884d8" strokeWidth={2} />
               <Tooltip />
             </LineChart>
