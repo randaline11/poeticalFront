@@ -31,8 +31,6 @@ class LineChartComponent extends Component {
     });
     data = data.filter((book) => {
       if (!isOriginal[book.year]) {
-        console.log('isOriginal: ', book.year);
-        console.log('isOriginal2:', isOriginal);
         isOriginal[book.year] = book.name;
         return (book.year > 1);
       } else {
@@ -82,6 +80,9 @@ class LineChartComponent extends Component {
     const yAxis = (this.state.sortingType === 'rating') ? 'rating' : 'reviews';
     const yAxisDomain = (this.state.sortingType === 'rating') ? [0, 5] : null;
     const yAxisLabel = (this.state.sortingType === 'rating') ? 'Avg Rating (out of 5)' : 'Review Count';
+    const isRatingHighlighted = (this.state.sortingType === 'rating') ? 'highlightButton' : '';
+    const isPopHighlighted = (this.state.sortingType === 'popularity') ? 'highlightButton' : '';
+
     const options = {
       borderWidth: 3,
       borderColor: '#2E294E',
@@ -99,8 +100,8 @@ class LineChartComponent extends Component {
       <div className="timelineTile">
         <div>
         Sort:
-          <button type="submit" onClick={() => { this.timelineSortingHandler('rating'); }}>By Rating </button>
-          <button type="submit" onClick={() => { this.timelineSortingHandler('popularity'); }}>By Popularity </button>
+          <button className={isRatingHighlighted} type="submit" onClick={() => { this.timelineSortingHandler('rating'); }}>By Rating </button>
+          <button className={isPopHighlighted} type="submit" onClick={() => { this.timelineSortingHandler('popularity'); }}>By Popularity </button>
           <div>currently displaying {this.state.sortingType} over time</div>
 
           <div>

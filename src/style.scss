@@ -137,6 +137,15 @@ ul {
   width: 10%;
 }
 
+.highlightButton {
+  transform: scale(0.9);
+  box-shadow: 1px 1px $blue;
+}
+
+button:hover {
+  transform: scale(0.9);
+}
+
 .vis-group.sample {
   color: $purple ;
 }
