@@ -51,6 +51,10 @@ button {
   margin-right: 3px;
 }
 
+.tile {
+  margin-top: -50px;
+}
+
 ul {
   list-style-type: none;
 }
@@ -108,10 +112,10 @@ ul {
 
 .customTooltip {
   color: $purple;
-  border: 1px solid $purple;
   background-color: rgba(255,255,255, 1);
-  margin: -5px;
-  padding: -5px;
+  margin: -2px;
+  padding: -3px;
+  border-radius: 0px;
 }
 
 .searchBar {

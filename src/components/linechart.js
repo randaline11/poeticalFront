@@ -53,6 +53,12 @@ class LineChartComponent extends Component {
     this.setState({ sortingType: e });
   }
 
+  renderActiveButton() {
+    if (this.state.sortingType === 'rating') {
+      // return (<button type="submit" className={}onClick={() => { this.timelineSortingHandler('rating'); }}>By Rating </button>
+      // )
+    }
+  }
 
   render() {
     const toAdd = this.configureData();
@@ -80,25 +86,28 @@ class LineChartComponent extends Component {
       }],
     };
     return (
-      <div>
+      <div className="timelineTile">
+        <div>
         Sort:
-        <button type="submit" onClick={() => { this.timelineSortingHandler('rating'); }}>By Rating </button>
-        <button type="submit" onClick={() => { this.timelineSortingHandler('popularity'); }}>By Popularity </button>
-        <div>currently displaying {this.state.sortingType} over time</div>
-        <div className="timelineTile">
-          <LineChart width={1200}
-            height={200}
-            onMouseOver={this.mouseOverHandler}
-            data={toAdd}
-          >
-            <XAxis type="number" domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
-            <YAxis />
-            <Line type="monotone" dataKey={yAxis} stroke="#8884d8" strokeWidth={2} />
-            <Tooltip />
-          </LineChart>
+          <button type="submit" onClick={() => { this.timelineSortingHandler('rating'); }}>By Rating </button>
+          <button type="submit" onClick={() => { this.timelineSortingHandler('popularity'); }}>By Popularity </button>
+          <div>currently displaying {this.state.sortingType} over time</div>
+
           <div>
-            {tile}
+            <LineChart width={1200}
+              height={200}
+              onMouseOver={this.mouseOverHandler}
+              data={toAdd}
+            >
+              <XAxis type="number" domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
+              <YAxis />
+              <Line type="monotone" dataKey={yAxis} stroke="#8884d8" strokeWidth={2} />
+              <Tooltip />
+            </LineChart>
           </div>
+        </div>
+        <div className="tile">
+          {tile}
         </div>
       </div>
     );

@@ -22,6 +22,11 @@ class TimelineComponent extends Component {
       poetNames: [],
       initialStep: 0,
       stepsEnabled: false,
+      data: undefined,
+      options: undefined,
+      poets: undefined,
+      books: undefined,
+      groups: undefined,
     };
     this.setupTimeline = this.setupTimeline.bind(this);
     this.onClickHandler = this.onClickHandler.bind(this);
@@ -50,14 +55,6 @@ class TimelineComponent extends Component {
       });
     }
   }
-  componentDidMount() {
-    if (this.state.timeline) {
-      console.log('we got the timeline in time!');
-    } else {
-      console.log('nope');
-    }
-  }
-
 
   onClickHandler(e) {
     if (e.item !== null) {
@@ -124,7 +121,7 @@ class TimelineComponent extends Component {
               content: 'Group 1',
               className: 'sample',
               subgroupStack: 'true',
-              style: 'width: 5px;',
+              style: 'width: 7px;',
 
               // Optional: a field 'className', 'style', 'order', [properties]
             },
@@ -201,8 +198,8 @@ class TimelineComponent extends Component {
         intro: 'Type in a poet to search the timeline.',
       },
       {
-        element: '.poetDisplay',
-        intro: 'graphs more info on a poet will show up here. Hover over the points on the graph to get info on specific books.',
+        element: 'poetComponent',
+        intro: 'A poet\'s graphs and additional info will display at the bottom. Hover over the points on the graph to get info on specific books.',
       },
     ];
     return steps;
@@ -234,6 +231,10 @@ class TimelineComponent extends Component {
     });
     console.log('found: ', found);
     if (found) {
+      const selectedItem = this.state.data.find((a) => {
+        return a.id === found.id;
+      });
+      this.state.myTimeline.setWindow(selectedItem.start, selectedItem.end);
       this.state.myTimeline.setSelection(found.id, { focus: true });
       this.onClickHandlerLocal(found);
     }
