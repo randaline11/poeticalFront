@@ -20,6 +20,22 @@ h1 {
   padding: 0px;
 }
 
+.buttonFlex {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  // margin-bottom: -50px;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.periodButtons {
+  height: 30px;
+  margin: 4px 8px 4px 8px;
+  padding: 6px 12px 6px 12px;
+}
+
 h3 {
   font-weight: normal;
 }

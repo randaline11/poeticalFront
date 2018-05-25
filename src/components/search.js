@@ -58,8 +58,9 @@ class SearchComponent extends Component {
   position: 'fixed',
   overflow: 'auto',
   height: '50px',
+  borderBottom: '50px',
   maxHeight: '25%', // TODO: don't cheat, let it flow to the bottom
-  marginBottom: '50px',
+  marginBottom: '0px',
   marginLeft: '3px',
 }}
           renderItem={(item, isHighlighted) =>
