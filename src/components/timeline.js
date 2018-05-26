@@ -240,6 +240,7 @@ class TimelineComponent extends Component {
       });
       this.state.myTimeline.setWindow(selectedItem.start, selectedItem.end);
       this.state.myTimeline.setSelection(found.id, { focus: true });
+      document.getElementById('timelineTile').scrollIntoView();
       this.onClickHandlerLocal(found);
     }
   }

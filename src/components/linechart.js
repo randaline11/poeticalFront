@@ -97,7 +97,7 @@ class LineChartComponent extends Component {
       }],
     };
     return (
-      <div className="timelineTile">
+      <div id="timelineTile">
         <div>
         Sort:
           <button className={isRatingHighlighted} type="submit" onClick={() => { this.timelineSortingHandler('rating'); }}>By Rating </button>

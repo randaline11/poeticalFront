@@ -59,11 +59,28 @@ h3 {
 
 .title {
   align-self: center;
+  margin-bottom: -10px;
 }
 
 .titleText {
   @extend h1;
   font-size: 36px;
+  text-decoration: none;
+}
+
+.subtitle{
+  color: $grey;
+}
+
+a {
+  text-decoration: none;
+}
+
+.titleAndSubtitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .overArchingNavbar {
@@ -72,7 +89,7 @@ h3 {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid $lightgrey;
-  padding: 10px 30px 10px 30px;
+  padding: 0px 30px 0px 30px;
 }
 
 input {
@@ -137,7 +154,7 @@ ul {
 
 }
 
-.timelineTile {
+#timelineTile {
   display: flex;
   justify-content: space-between;
   margin-left: 40px;

@@ -6,8 +6,6 @@ import { withRouter, NavLink } from 'react-router-dom';
 class Navbar extends Component {
   constructor(props) {
     super(props);
-
-  //  this.handleSignout = this.handleSignout.bind(this);
   }
 
 
@@ -17,7 +15,12 @@ class Navbar extends Component {
       <div>
         <nav className="overArchingNavbar">
           <div className="title">
-            <NavLink className="nav titleText" exact to="/">poetry.seen</NavLink>
+            <NavLink exact to="/">
+              <div className="titleAndSubtitle">
+                <div className="nav titleText"> poetry.seen</div>
+                <div className="subtitle"> The Publishing Landscape, Visualized </div>
+              </div>
+            </NavLink>
           </div>
           <div className="navbar">
             <NavLink className="nav navButtons" to="/"> <li> Timeline </li></NavLink>
