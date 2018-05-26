@@ -20,8 +20,10 @@ class Navbar extends Component {
             <NavLink className="nav titleText" exact to="/">poetry.seen</NavLink>
           </div>
           <div className="navbar">
-            <NavLink className="nav navButtons" to="/"> <li> Timeline | </li></NavLink>
-            <NavLink className="nav navButtons" to="/about"> <li> About | </li></NavLink>
+            <NavLink className="nav navButtons" to="/"> <li> Timeline </li></NavLink>
+            <div className="separator"> | </div>
+            <NavLink className="nav navButtons" to="/about"> <li> About </li></NavLink>
+            <div className="separator"> | </div>
             <NavLink className="nav navButtons" to="/contact"> <li> Contact </li></NavLink>
           </div>
         </nav>

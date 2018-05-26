@@ -4,14 +4,12 @@ import React, { Component } from 'react';
 class AboutComponent extends Component {
   constructor(props) {
     super(props);
-
-  //  this.handleSignout = this.handleSignout.bind(this);
   }
 
 
   render(props) {
     return (
-      <div> About component! </div>
+      <div> This site is the culminating experience of two terms of work under the Presidential Scholars Program at Dartmouth College. </div>
     );
   }
 }

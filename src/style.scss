@@ -73,7 +73,7 @@ h3 {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid $lightgrey;
-height: 50px;
+  padding: 10px 30px 10px 30px;
 }
 
 input {
@@ -97,7 +97,19 @@ li {
 .navButtons {
   color: $blue;
   font-weight: 700;
-//  text-transform: uppercase;
+}
+
+.separator {
+  color: $blue;
+}
+
+.nav:hover {
+//  color: $purple;
+transform: scale(0.9);
+}
+
+li:active {
+  color: purple;
 }
 
 button {
