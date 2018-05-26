@@ -3,39 +3,41 @@ import 'vis/dist/vis.min.css';
 import moment from 'moment';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import dotenv from 'dotenv';
 import './style.scss';
 
 import TimelineComponent from './components/timeline';
+import Navbar from './components/navbar';
+import AboutComponent from './components/about';
+import ContactComponent from './components/contact';
 
 dotenv.config({ silent: true });
 
-
-// var data = new DataSet([
-//   {id: 1, content: 'item 1', className:'sampleItem', start: moment('2013-04-20'), end: moment('2013-04-21')},
-//   {id: 2, content: 'item 2', className:'sampleItem', start: moment('2013-04-14'), end: moment('2013-04-16')},
-//   {id: 3, content: 'item 3', className:'sampleItem', start: moment('2013-04-18'), end: moment('2013-04-20')},
-//   {id: 4, content: 'item 4', start: moment('2013-04-16'), end: moment('2013-04-19')},
-//   {id: 5, content: 'item 5', start: moment('2013-04-25'), end: moment('2013-04-26')},
-//   {id: 6, content: 'item 6', start: moment('2013-04-27'), end: moment('2013-04-28')},
-//   {id: 7, content: 'item 7', start: moment('2013-04-17'), end: moment('2013-04-20')},
-//   {id: 8, content: 'item 8', start: moment('2013-04-19'), end: moment('2013-04-21')}
-// ]);
+const FallBack = (props) => {
+  return <div>URL Not Found</div>;
+};
 
 class App extends Component {
-  // here's what our constructor would look like
   constructor(props) {
     super(props);
     this.state = {
     };
   }
 
-
   render() {
     return (
-      <div>
-        <TimelineComponent container="main" />
-      </div>
+      <Router>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={TimelineComponent} container="main" />
+            <Route exact path="/about" component={AboutComponent} />
+            <Route exact path="/contact" component={ContactComponent} />
+            <Route component={FallBack} />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

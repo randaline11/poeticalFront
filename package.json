@@ -61,6 +61,7 @@
     "react-chartjs": "^1.2.0",
     "react-dom": "^16.3.2",
     "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-select": "^1.2.1",
     "react-visjs-timeline": "randaline11/react-visjs-timeline",
     "react-visjs-timeline-randaline-fork": "^1.5.0",

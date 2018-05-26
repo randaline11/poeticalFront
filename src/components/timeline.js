@@ -11,7 +11,6 @@ import LineChartComponent from './linechart';
 
 import '../style.scss';
 
-
 class TimelineComponent extends Component {
   constructor(props) {
     super(props);
@@ -298,7 +297,7 @@ class TimelineComponent extends Component {
             <button onClick={() => { this.timePeriodButtonHandler(1970, 1980); }} className="periodButtons"> 1970-1980 </button>
             <button onClick={() => { this.timePeriodButtonHandler(1980, 1990); }} className="periodButtons"> 1980-1990 </button>
             <button onClick={() => { this.timePeriodButtonHandler(1990, 2000); }} className="periodButtons"> 1990-2000 </button>
-            <button onClick={() => { this.timePeriodButtonHandler(2000, 2018); }} className="periodButtons"> 2000-today </button>
+            <button onClick={() => { this.timePeriodButtonHandler(2000, 1700); }} className="periodButtons"> 2000-today </button>
           </div>
           <div className="timelineWrapper">
             <Timeline

@@ -5,6 +5,8 @@ $grey: #696969;
 $lightgrey: rgb(240, 240, 240);
 $green: #6E9075;
 $blue: #74CBE6;
+$pink: #fc4b9e;
+$darkerblue:  #EA526F;
 
 body, html {
   font-family: "Raleway", sans-serif;
@@ -13,11 +15,16 @@ body, html {
 }
 
 h1 {
-  color: $purple;
-  font-family: "Work Sans", sans-serif;
+  color: $blue;
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
   margin-bottom: 10px;
   margin-top: 0px;
   padding: 0px;
+}
+
+.nav {
+  text-decoration: none;
 }
 
 .buttonFlex {
@@ -44,6 +51,31 @@ h3 {
   background-color: #FFFFFF;
 }
 
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+}
+
+.title {
+  align-self: center;
+}
+
+.titleText {
+  @extend h1;
+  font-size: 36px;
+}
+
+.overArchingNavbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid $lightgrey;
+height: 50px;
+}
+
 input {
   font-family: "Raleway", sans-serif;
   font-size: 18px;
@@ -56,6 +88,16 @@ autocomplete {
 a {
   margin-left: 3px;
   margin-right: 3px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.navButtons {
+  color: $blue;
+  font-weight: 700;
+//  text-transform: uppercase;
 }
 
 button {
