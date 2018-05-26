@@ -283,8 +283,8 @@ class TimelineComponent extends Component {
         <div className="mainFlex">
           {steps}
           <div className="searchFlex">
-            <button className="firstTimeButton" onClick={this.startSteps}> Tutorial </button>
             <SearchComponent allPoets={this.state.poetNames} allBooks={this.state.books} searchHandler={this.searchHandler} />
+            <button className="firstTimeButton" onClick={this.startSteps}> Tutorial </button>
           </div>
           <div className="buttonFlex">
             <h3> Time Periods: </h3>

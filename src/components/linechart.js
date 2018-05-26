@@ -116,8 +116,8 @@ class LineChartComponent extends Component {
               <XAxis type="number" label={{ value: 'Time (in Years)', position: 'insideBottom', offset: -5 }} domain={[toAdd[0].year, toAdd[toAdd.length - 1].year]} dataKey="year" />
               <YAxis domain={yAxisDomain}
                 label={{
- value: yAxisLabel, angle: -90, offset: 10, position: 'insideBottomLeft',
-}}
+                  value: yAxisLabel, angle: -90, offset: 0, position: 'insideBottomLeft',
+                }}
               />
               <Line type="monotone" dataKey={yAxis} stroke="#8884d8" strokeWidth={2} />
               <Tooltip />

@@ -29,12 +29,11 @@ h1 {
 
 .buttonFlex {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  // margin-bottom: -50px;
-  margin-left: 20px;
+  margin-left: 30px;
   margin-top: 20px;
-  margin-right: 20px;
+  margin-right: 30px;
 }
 
 .periodButtons {
@@ -141,13 +140,14 @@ ul {
 .timelineTile {
   display: flex;
   justify-content: space-between;
+  margin-left: 40px;
+  margin-top: 30px;
 }
-
 
 .select-menu-outer {
   background-color: $green;
-
 }
+
 * {
   visibility: visible;
 }
@@ -195,16 +195,15 @@ ul {
 
 .searchFlex {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   align-content: center;
+  margin-top: 20px;
 }
 
 .firstTimeButton {
+  border: 0px;
   align-self: center;
-  margin-top: 10px;
-  width: 10%;
 }
 
 .highlightButton {
@@ -224,7 +223,7 @@ button:hover {
 }
 
 .timelineWrapper {
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .test {
@@ -240,15 +239,16 @@ button:hover {
   border: 2px dotted rgba(0,0,0,0);
   align-items: center;
   transition: 0.35s ease;
-  width: 400px;
+  width: 350px;
+  word-wrap: normal;
 }
 
 .postView:hover, .postView:active {
 background: $lightgrey;
 }
 
-.postViewPlaceholder {
-  width: 400px;
+.bookTitle {
+  text-align: center;
 }
 
 .searchTitle {
@@ -261,11 +261,13 @@ background: $lightgrey;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
 }
 
 .poetDisplayTitle {
   @extend .poetDisplay;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .bold {
@@ -283,16 +285,11 @@ background: $lightgrey;
   justify-content: space-between;
 }
 
-header {
-  border-bottom: 1px solid $lightgrey;
-}
-
 .search {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 
 .flexbox-column {
   display: flex;
