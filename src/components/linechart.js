@@ -16,6 +16,21 @@ class LineChartComponent extends Component {
     this.timelineSortingHandler = this.timelineSortingHandler.bind(this);
   }
 
+  componentDidMount() {
+    console.log('componentDidMount');
+    this.node.scrollIntoView({ behavior: 'instant' });
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('componentDidUpdate');
+    console.log('prevProps: ', prevProps);
+    console.log('revState: ', prevState);
+    console.log('currentProps: ', this.props);
+    if (prevProps.name !== this.props.name) {
+      console.log('should be scrolling into view...');
+      this.node.scrollIntoView({ behavior: 'instant' });
+    }
+  }
   configureData() {
     const sorted = this.props.books.sort(this.sorter);
     const isOriginal = {};
@@ -59,13 +74,6 @@ class LineChartComponent extends Component {
     this.setState({ sortingType: e });
   }
 
-  renderActiveButton() {
-    if (this.state.sortingType === 'rating') {
-      // return (<button type="submit" className={}onClick={() => { this.timelineSortingHandler('rating'); }}>By Rating </button>
-      // )
-    }
-  }
-
   render() {
     const toAdd = this.configureData();
     let tile;
@@ -97,7 +105,7 @@ class LineChartComponent extends Component {
       }],
     };
     return (
-      <div id="timelineTile">
+      <div id="timelineTile" ref={node => this.node = node}>
         <div>
         Sort:
           <button className={isRatingHighlighted} type="submit" onClick={() => { this.timelineSortingHandler('rating'); }}>By Rating </button>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Timeline from 'react-visjs-timeline-randaline-fork';
 import moment from 'moment';
 import { Steps } from 'intro.js-react';
+import ReactLoading from 'react-loading';
 import 'intro.js/introjs.css';
 
 import * as timelineFunctions from '../timelineFormatService';
@@ -240,7 +241,9 @@ class TimelineComponent extends Component {
       });
       this.state.myTimeline.setWindow(selectedItem.start, selectedItem.end);
       this.state.myTimeline.setSelection(found.id, { focus: true });
-      document.getElementById('timelineTile').scrollIntoView();
+      //  document.getElementById('timelineTile').scrollIntoView();
+      const hello = document.getElementById('timelineTile');
+      console.log('hello: ', hello);
       this.onClickHandlerLocal(found);
     }
   }
@@ -250,7 +253,10 @@ class TimelineComponent extends Component {
     let poetComponent;
     let steps;
     if (this.state.options == undefined || this.state.data == undefined) {
-      return <div>Loading... </div>;
+      return (<div className="loadingDiv">
+        <h1 className="loadingTitle">Loading... </h1>
+        <ReactLoading type="bars" color="#74CBE6" height={667} width={375} />
+              </div>);
     } else {
       if (this.state.hovering) {
         const formattedPoetName = this.state.poet.name.replace(/ /g, '-');
@@ -263,7 +269,7 @@ class TimelineComponent extends Component {
               <a href={linkpoet}><img src="https://pbs.twimg.com/profile_images/818597091215716353/5ejD1Ojs_400x400.jpg" style={{ width: '22px', height: '22px' }} /></a>
               <a href={linkwiki}><img src="https://image.flaticon.com/icons/png/512/49/49360.png" style={{ width: '22px', height: '22px' }} /></a>
             </div>
-            <LineChartComponent books={this.state.poetsBooks} />
+            <LineChartComponent books={this.state.poetsBooks} name={this.state.poet.name} />
           </div>);
       }
 

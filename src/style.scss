@@ -23,8 +23,21 @@ h1 {
   padding: 0px;
 }
 
+.loadingTitle {
+  color: $grey;
+}
+
 .nav {
   text-decoration: none;
+}
+
+.loadingDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-top: 200px;
 }
 
 .buttonFlex {
@@ -151,7 +164,13 @@ ul {
 
 .Select-value .selectItem {
   background-color: #FFFFFF;
+}
 
+.aboutPage {
+  display: flex;
+  justify-content: flex-start;
+  margin: 40px 40px 40px 40px;
+  padding: 20px 20px 20px 20px;
 }
 
 #timelineTile {
