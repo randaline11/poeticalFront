@@ -254,8 +254,9 @@ class TimelineComponent extends Component {
     let steps;
     if (this.state.options == undefined || this.state.data == undefined) {
       return (<div className="loadingDiv">
-        <h1 className="loadingTitle">Loading... </h1>
-        <ReactLoading type="bars" color="#74CBE6" height={667} width={375} />
+        <ReactLoading type="cubes" color="#74CBE6" height={200} width={200} />
+        <h3 className="loadingTitle">Loading... </h3>
+
               </div>);
     } else {
       if (this.state.hovering) {

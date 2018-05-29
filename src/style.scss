@@ -166,11 +166,13 @@ ul {
   background-color: #FFFFFF;
 }
 
-.aboutPage {
+.aboutOrContactPage {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
-  margin: 40px 40px 40px 40px;
+  margin: 50px 50px 50px 50px;
   padding: 20px 20px 20px 20px;
+  line-height: 36px;
 }
 
 #timelineTile {
