@@ -4,7 +4,6 @@ import moment from 'moment';
 
 function createCrowdsourceGraph(filteredPoets, graphml) {
   console.log('gathering list of weights..');
-  console.log('list of filtered poets: ', filteredPoets);
   const listOfWeights =
     graphml.graph.edge.reduce((filtered, edge) => {
       if (filteredPoets[edge._attributes.source] &&
@@ -22,7 +21,6 @@ function createCrowdsourceGraph(filteredPoets, graphml) {
 }
 
 function getAllBooksforPoetsWrapper2() {
-  console.log('getAllBooksforPoetsWrapper2');
   return new Promise((fulfill, reject) => {
     fetchPoets()
       .then((res) => {
@@ -86,10 +84,6 @@ function formatTimelineIntoData2(allBooksAllPoets) {
           endYear = sorted[endIndex].first_publish_year;
         }
         const lastBookYear = moment(endYear, 'YYYY');
-        console.log('firstBookYear: ', sorted[0].first_publish_year);
-        console.log('lastBookYear: ', endYear);
-        console.log('idx:', idx);
-
         const theTitle = `<div class="customTooltip">${poet.name}</div>`;
         fulfill2({
           id: poet.id, title: theTitle, content: poet.name, className: 'sampleItem', group: 1, subgroup: idx, start: firstBookYear, end: lastBookYear,
@@ -104,8 +98,6 @@ function formatTimelineIntoData2(allBooksAllPoets) {
         if (finishedDataset[i] != undefined && finishedDataset[i].id !== 123 && seenIDs.indexOf(finishedDataset[i].id) === -1) {
           seenIDs.push(finishedDataset[i].id);
           filteredDataset.push(finishedDataset[i]);
-        } else {
-          console.log('removing duplicate: ', finishedDataset[i]);
         }
       }
       console.log('finished gathering all data');
@@ -124,7 +116,6 @@ function getAllBooksForPoet(poet) {
       promiseArray.push(new Promise((fulfill2, reject) => {
         fetchBook(book)
           .then((res) => {
-            console.log('res is: ', res);
             fulfill2(res.data);
           })
           .catch((err) => {

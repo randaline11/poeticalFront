@@ -22,12 +22,7 @@ class LineChartComponent extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('componentDidUpdate');
-    console.log('prevProps: ', prevProps);
-    console.log('revState: ', prevState);
-    console.log('currentProps: ', this.props);
     if (prevProps.name !== this.props.name) {
-      console.log('should be scrolling into view...');
       this.node.scrollIntoView({ behavior: 'instant' });
     }
   }
@@ -35,7 +30,6 @@ class LineChartComponent extends Component {
     const sorted = this.props.books.sort(this.sorter);
     const isOriginal = {};
     let data = sorted.map((book) => {
-      console.log('configure book: ', book);
       return {
         name: book.title,
         year: book.first_publish_year,

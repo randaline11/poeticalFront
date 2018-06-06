@@ -59,8 +59,6 @@ class TimelineComponent extends Component {
 
   onClickHandler(e) {
     if (e.item !== null) {
-      console.log('item: ', e);
-      console.log('this.state.peots: ', this.state.poets);
       const thisPoet = this.state.poets.find((poet) => { return poet.id === e.item; });
 
       let i = 0;
@@ -71,12 +69,8 @@ class TimelineComponent extends Component {
         i += 1;
       }
 
-      console.log('thisPoet: ', thisPoet);
-      console.log('poetsBooks: ', poetsBooks);
-
 
       const items = this.state.myTimeline.getWindow();
-      console.log('items after click: ', items);
       this.setState({
         hovering: true,
         id: e.item,
@@ -180,7 +174,6 @@ class TimelineComponent extends Component {
     const toStart = this.state.poets.map((poet) => {
       return poet.name;
     });
-    console.log('tostart is: ', toStart);
     this.setState({ poetNames: toStart });
   }
 
@@ -214,7 +207,6 @@ class TimelineComponent extends Component {
         firstTime: false,
         myTimeline: timeline,
       }, () => {
-        console.log('did it succeed? ', this.state);
         setTimeout(() => {
           //    const theWindow = this.state.myTimeline.getVisibleItems();
           //    console.log('window: ', theWindow);
@@ -234,7 +226,6 @@ class TimelineComponent extends Component {
     const found = this.state.poets.find((e) => {
       return e.name === searchTerm;
     });
-    console.log('found: ', found);
     if (found) {
       const selectedItem = this.state.data.find((a) => {
         return a.id === found.id;
@@ -242,8 +233,6 @@ class TimelineComponent extends Component {
       this.state.myTimeline.setWindow(selectedItem.start, selectedItem.end);
       this.state.myTimeline.setSelection(found.id, { focus: true });
       //  document.getElementById('timelineTile').scrollIntoView();
-      const hello = document.getElementById('timelineTile');
-      console.log('hello: ', hello);
       this.onClickHandlerLocal(found);
     }
   }
@@ -317,7 +306,7 @@ class TimelineComponent extends Component {
             />
           </div>
           <div className="test">
-            <h3>Click to use. Scroll up and down, left and right with the trackpad. CTRL to zoom in and out. Click on a line to see more info on a poet.</h3>
+            <h3 />
           </div>
           <div className="poetDisplay">
             {poetComponent}

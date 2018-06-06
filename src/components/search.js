@@ -18,14 +18,12 @@ class SearchComponent extends Component {
   }
 
   changeHandler(e) {
-    console.log('e: ', e);
     this.setState({
       searchTerm: e.target.value,
     });
   }
 
   changeHandler2(e) {
-    console.log('e: ', e);
     this.setState({
       searchTerm: e,
     }, () => {
@@ -34,7 +32,6 @@ class SearchComponent extends Component {
   }
 
   render() {
-    console.log('allPoetNames: ', this.props.allPoets);
     const format2 = this.props.allPoets.map((poet) => {
       return { id: poet, label: poet };
     });
